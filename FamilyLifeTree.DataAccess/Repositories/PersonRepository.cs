@@ -187,8 +187,11 @@
 		/// <inheritdoc/>
 		public async Task<IEnumerable<Person>> GetPagedAsync(int page, int pageSize)
 		{
-			if (page < 1) page = 1;
-			if (pageSize < 1) pageSize = 10;
+			if (page < 1) 
+				page = 1;
+
+			if (pageSize < 1) 
+				pageSize = 10;
 
 			var entities = await _dbSet
 				.OrderBy(p => p.LastName)
@@ -212,7 +215,7 @@
 				.AnyAsync(r => r.PrimaryPersonId == id || r.RelatedPersonId == id);
 
 			if (hasImportantRelationships)
-				return false; // Не удаляем, если есть связи
+				return false;
 
 			_dbSet.Remove(entity);
 			await _context.SaveChangesAsync();
