@@ -37,6 +37,7 @@
 
 		/// <summary>
 		/// Конфигурирует сущность персоны.
+		/// Устанавливает ограничения полей, индексы и значения по умолчанию.
 		/// </summary>
 		private static void ConfigurePersonEntity(ModelBuilder modelBuilder)
 		{
@@ -91,6 +92,7 @@
 
 		/// <summary>
 		/// Конфигурирует сущность связей.
+		/// Устанавливает ограничения полей, индексы и значения по умолчанию.
 		/// </summary>
 		private static void ConfigureRelationshipEntity(ModelBuilder modelBuilder)
 		{
