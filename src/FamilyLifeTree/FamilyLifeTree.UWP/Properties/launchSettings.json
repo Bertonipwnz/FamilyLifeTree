@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "FamilyLifeTree.UWP": {
+      "commandName": "MsixPackage"
+    }
+  }
+}
