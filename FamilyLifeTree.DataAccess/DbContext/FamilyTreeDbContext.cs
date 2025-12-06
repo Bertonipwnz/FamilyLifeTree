@@ -8,6 +8,8 @@
 	/// </summary>
 	public class FamilyTreeDbContext : DbContext
 	{
+		#region Public Properties
+
 		/// <summary>
 		/// Сущности персон.
 		/// </summary>
@@ -18,6 +20,10 @@
 		/// </summary>
 		public DbSet<RelationshipEntity> Relationships { get; set; }
 
+		#endregion Public Properties
+
+		#region Public Constructors
+
 		/// <summary>
 		/// Создает экземпляр <see cref="FamilyTreeDbContext"/>
 		/// </summary>
@@ -25,6 +31,10 @@
 			: base(options)
 		{
 		}
+
+		#endregion Public Constructors
+
+		#region Protected Methods
 
 		/// <inheritdoc/>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,6 +44,10 @@
 			ConfigurePersonEntity(modelBuilder);
 			ConfigureRelationshipEntity(modelBuilder);
 		}
+
+		#endregion Protected Methods
+
+		#region Private Methods
 
 		/// <summary>
 		/// Конфигурирует сущность персоны.
@@ -167,5 +181,7 @@
 					.HasDatabaseName("IX_Relationships_IsConfirmed");
 			});
 		}
+
+		#endregion Private Methods
 	}
 }
