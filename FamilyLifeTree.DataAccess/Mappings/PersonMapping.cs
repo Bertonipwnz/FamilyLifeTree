@@ -1,13 +1,13 @@
 ﻿namespace FamilyLifeTree.DataAccess.Mappings
 {
-    using FamilyLifeTree.Core.Enums;
-    using FamilyLifeTree.Core.Models;
-    using FamilyLifeTree.DataAccess.Entities;
+	using FamilyLifeTree.Core.Enums;
+	using FamilyLifeTree.Core.Models;
+	using FamilyLifeTree.DataAccess.Entities;
 
-    /// <summary>
-    /// Класс мапинга для <see cref="PersonEntity"/> и <see cref="Person"/>
-    /// </summary>
-    public static class PersonMapping
+	/// <summary>
+	/// Класс мапинга для <see cref="PersonEntity"/> и <see cref="Person"/>
+	/// </summary>
+	public static class PersonMapping
 	{
 		/// <summary>
 		/// Преобразует <see cref="PersonEntity"/> в <see cref="Person"/>
@@ -38,6 +38,7 @@
 		{
 			if (model == null) 
 				return null;
+
 			return new PersonEntity
 			{
 				Id = model.Id,
@@ -53,7 +54,7 @@
 		}
 
 		/// <summary>
-		/// Обновляет сущность <see cref="PersonEntity"/>
+		/// Обновляет сущность <see cref="PersonEntity"/> по данымм <see cref="Person"/>
 		/// </summary>
 		public static void UpdateEntity(this PersonEntity entity, Person model)
 		{
