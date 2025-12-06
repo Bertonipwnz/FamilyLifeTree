@@ -8,8 +8,10 @@
 	using FamilyLifeTree.DataAccess.Repositories;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.DependencyInjection;
-	using System;
-	using Windows.ApplicationModel;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using Utils.Analytics;
+    using Windows.ApplicationModel;
 	using Windows.ApplicationModel.Activation;
 	using Windows.UI.Xaml;
 	using Windows.UI.Xaml.Controls;
@@ -58,7 +60,6 @@
 		/// <inheritdoc/>
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			// Инициализация контейнера зависимостей
 			ConfigureServices();
 
 			// TODO: Блокировка от двойного запуска.
@@ -93,7 +94,7 @@
 				// Убеждаемся, что текущее окно активно
 				Window.Current.Activate();
 			}
-
+			
 			// Инициализация базы данных
 			InitializeDatabase();
 		}
@@ -133,6 +134,13 @@
 		private void ConfigureServices()
 		{
 			var services = new ServiceCollection();
+
+			services.AddLogging(builder =>
+			{
+				builder.ClearProviders();
+				builder.AddProvider(new SerilogLoggerProvider());
+				builder.SetMinimumLevel(LogLevel.Debug);
+			});
 
 			ConfigureAutoMapper(services);
 			ConfigureDatabase(services);

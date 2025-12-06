@@ -17,4 +17,5 @@
     <Platform Solution="*|x86" Project="x86" />
     <Deploy />
   </Project>
+  <Project Path="Utils/Utils.csproj" Id="06bdb86a-08d4-413b-a8fe-27790a4895a8" />
 </Solution>
