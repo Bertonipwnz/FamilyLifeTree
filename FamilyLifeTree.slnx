@@ -7,6 +7,7 @@
   <Folder Name="/SolutionItems/">
     <File Path="CHANGELOG.md" />
     <File Path="README.md" />
+    <File Path="TODO.md" />
   </Folder>
   <Project Path="FamilyLifeTree.Core/FamilyLifeTree.Core.csproj" Id="e2cf536d-a555-4f56-ab8e-76fe114ba345" />
   <Project Path="FamilyLifeTree.DataAccess/FamilyLifeTree.DataAccess.csproj" Id="af2e0484-5fff-415b-9ae5-40e2fa0bd88f" />
