@@ -30,6 +30,15 @@
 
 		#endregion Private Fields
 
+		#region Public Properties
+
+		/// <summary>
+		/// Получает провайдер служб зависимостей приложения.
+		/// </summary>
+		public IServiceProvider? ServiceProvider => _serviceProvider;
+
+		#endregion Public Properties
+
 		#region Constructor
 
 		/// <summary>
@@ -43,15 +52,6 @@
 		}
 
 		#endregion Constructor
-
-		#region Public Properties
-
-		/// <summary>
-		/// Получает провайдер служб зависимостей приложения.
-		/// </summary>
-		public IServiceProvider? ServiceProvider => _serviceProvider;
-
-		#endregion Public Properties
 
 		#region Protected Methods
 
