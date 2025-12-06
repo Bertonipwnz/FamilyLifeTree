@@ -3,33 +3,27 @@
     using FamilyLifeTree.DataAccess.Entities.Base;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+
+#nullable enable
 
     /// <summary>
     /// Сущность персоны для EF.
     /// </summary>
-    [Table("Persons")]
-	public class PersonEntity : BaseEntity
+    public class PersonEntity : BaseEntity
 	{
 		/// <summary>
 		/// Имя.
 		/// </summary>
-		[Required]
-		[MaxLength(100)]
 		public string FirstName { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Фамилия.
 		/// </summary>
-		[Required]
-		[MaxLength(100)]
 		public string LastName { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Отчество.
 		/// </summary>
-		[MaxLength(100)]
 		public string? MiddleName { get; set; }
 
 		/// <summary>
@@ -43,21 +37,18 @@
 		public DateTime? DeathDate { get; set; }
 
 		/// <summary>
-		/// Гендер.
+		/// Гендер. Хранится как int в БД, соответствует enum Gender.
 		/// </summary>
-		[Required]
 		public int Gender { get; set; }
 
 		/// <summary>
 		/// Биография.
 		/// </summary>
-		[MaxLength(2000)]
 		public string? Biography { get; set; }
 
 		/// <summary>
-		/// Фото.
+		/// Путь к фото.
 		/// </summary>
-		[MaxLength(500)]
 		public string? PhotoPath { get; set; }
 
 		/// <summary>
