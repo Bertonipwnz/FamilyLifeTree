@@ -10,7 +10,7 @@
 	using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using System;
-    using Utils.Analytics;
+    using Utils.Logger;
     using Windows.ApplicationModel;
 	using Windows.ApplicationModel.Activation;
 	using Windows.UI.Xaml;
