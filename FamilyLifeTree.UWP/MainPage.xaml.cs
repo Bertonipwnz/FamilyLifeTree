@@ -1,15 +1,31 @@
-﻿using Windows.UI.Xaml.Controls;
-
-namespace FamilyLifeTree.UWP
+﻿namespace FamilyLifeTree.UWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a <see cref="Frame">.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
-    }
+	using FamilyLifeTree.ViewModels.Pages;
+	using Windows.UI.Xaml.Controls;
+	using Windows.UI.Xaml.Navigation;
+
+	/// <summary>
+	/// Основная страница приложения.
+	/// </summary>
+	public sealed partial class MainPage : Page
+	{
+		/// <summary>
+		/// Инициалаизирует <see cref="MainPage"/>
+		/// </summary>
+		public MainPage()
+		{
+			InitializeComponent();
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+
+			App.CurrentApp?.SetNavigationFrame(_appFrame);
+			DataContext = App.CurrentApp?.GetRequiredService<MainPageViewModel>();
+		}
+	}
 }
