@@ -1,11 +1,13 @@
-﻿namespace FamilyLifeTree.Core.Interfaces
+﻿namespace Utils.Interfaces
 {
-	/// <summary>
-	/// Интерфейс представляющий сервис навигации.
-	/// </summary>
-	/// <typeparam name="H">Хост.</typeparam>
-	/// <typeparam name="P">Страница.</typeparam>
-	public interface INavigationService<H, P>
+    using System;
+
+    /// <summary>
+    /// Интерфейс представляющий сервис навигации.
+    /// </summary>
+    /// <typeparam name="H">Хост.</typeparam>
+    /// <typeparam name="P">Страница.</typeparam>
+    public interface INavigationService<H, P> : IDisposable
 	{
 		/// <summary>
 		/// Устанавливает хост.
