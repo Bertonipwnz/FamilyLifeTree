@@ -15,8 +15,9 @@
 
 		/// <summary>
 		/// Обрабатывает навигацию на страницу.
+		/// <paramref name="param">Передаваемый параметр при навигации.</paramref>
 		/// </summary>
-		public virtual void OnNavigatedTo()
+		public virtual void OnNavigatedTo(object param = null)
 		{
 
 		}
@@ -30,7 +31,7 @@
 		}
 
 		/// <inheritdoc/>
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			if (_isDisposed)
 				return;

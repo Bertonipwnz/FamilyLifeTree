@@ -1,25 +1,24 @@
 ﻿namespace Utils.Interfaces
 {
-    using System;
+	using System;
 
-    /// <summary>
-    /// Интерфейс представляющий сервис навигации.
-    /// </summary>
-    /// <typeparam name="H">Хост.</typeparam>
-    /// <typeparam name="P">Страница.</typeparam>
-    public interface INavigationService<H, P> : IDisposable
+#nullable enable
+
+	/// <summary>
+	/// Интерфейс сервиса навигации (платформо-независимый).
+	/// </summary>
+	public interface INavigationService : IDisposable
 	{
 		/// <summary>
-		/// Устанавливает хост.
+		/// Переходит к странице, связанной с указанной моделью представления.
 		/// </summary>
-		/// <param name="host">Экземпляр хоста.</param>
-		public void SetHost(H host);
+		/// <typeparam name="TViewModel">Тип модели представления.</typeparam>
+		/// <param name="parameter">Параметр навигации.</param>
+		void NavigateTo<TViewModel>(object? parameter = null) where TViewModel : class;
 
 		/// <summary>
-		/// Обрабатывает навигацию на страницу.
+		/// Возвращается на предыдущую страницу (если возможно).
 		/// </summary>
-		/// <param name="page">Страница.</param>
-		/// <param name="param">Передаваемый параметр.</param>
-		public void NavigateToPage(P page, object param);
+		void GoBack();
 	}
 }

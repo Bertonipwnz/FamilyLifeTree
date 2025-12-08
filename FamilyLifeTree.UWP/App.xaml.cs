@@ -6,7 +6,8 @@
 	using FamilyLifeTree.DataAccess.DbContext;
 	using FamilyLifeTree.DataAccess.Mappings;
 	using FamilyLifeTree.DataAccess.Repositories;
-	using Microsoft.EntityFrameworkCore;
+    using FamilyLifeTree.UWP.Services;
+    using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using System;
@@ -38,6 +39,11 @@
 		/// Получает провайдер служб зависимостей приложения.
 		/// </summary>
 		public IServiceProvider? ServiceProvider => _serviceProvider;
+
+		/// <summary>
+		/// Текущий экземпляр приложения.
+		/// </summary>
+		public static App CurrentApp => (App)Current;
 
 		#endregion Public Properties
 
@@ -276,6 +282,24 @@
 			{
 				return scope.ServiceProvider.GetService<T>();
 			}
+		}
+
+		/// <summary>
+		/// Устанавливает корневой Frame для сервиса навигации.
+		/// Вызывается один раз из MainPage после её создания.
+		/// </summary>
+		/// <param name="frame">Frame, который будет использоваться для навигации.</param>
+		/// <exception cref="ArgumentNullException">Если frame равен null.</exception>
+		/// <exception cref="InvalidOperationException">Если Frame уже был установлен.</exception>
+		public void SetNavigationFrame(Frame frame)
+		{
+			if (frame == null) 
+				throw new ArgumentNullException(nameof(frame));
+
+			var navService = _serviceProvider?.GetRequiredService<NavigationService>()
+							 ?? throw new InvalidOperationException("ServiceProvider не инициализирован.");
+
+			navService.Initialize(frame);
 		}
 
 		#endregion Public Methods

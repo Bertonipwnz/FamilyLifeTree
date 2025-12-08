@@ -1,26 +1,29 @@
 ﻿namespace Utils.Interfaces
 {
 	using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Интерфейс для объектов, поддерживающих асинхронную инициализацию.
-    /// </summary>
-    public interface IAsyncInitializable
+	/// <summary>
+	/// Интерфейс для объектов, поддерживающих асинхронную инициализацию.
+	/// </summary>
+	public interface IAsyncInitializable
 	{
 		/// <summary>
-		/// Инициализирован ли сервис>
+		/// Получает значение, указывающее, инициализирован ли объект.
 		/// </summary>
-		public bool IsInited { get; set; }
+		bool IsInitialized { get; }
 
 		/// <summary>
-		/// Событие инициализации.
+		/// Событие, возникающее после успешной инициализации объекта.
 		/// </summary>
-		public EventHandler onInitialized { get; set; }
+		event EventHandler Initialized;
 
 		/// <summary>
-		/// Инициализирует объект.
+		/// Выполняет асинхронную инициализацию объекта с поддержкой отмены.
 		/// </summary>
-		Task InitializeAsync();
+		/// <param name="cancellationToken">Токен отмены для прерывания операции.</param>
+		/// <returns>Задача, представляющая операцию инициализации.</returns>
+		Task InitializeAsync(CancellationToken cancellationToken = default);
 	}
 }
