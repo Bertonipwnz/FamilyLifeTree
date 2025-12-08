@@ -1,21 +1,21 @@
 ﻿namespace FamilyLifeTree.UWP
 {
-    using FamilyLifeTree.ViewModels.Pages;
-    using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Navigation;
+	using FamilyLifeTree.ViewModels.Pages;
+	using Windows.UI.Xaml.Controls;
+	using Windows.UI.Xaml.Navigation;
 
-    /// <summary>
-    /// Основная страница приложения.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
+	/// <summary>
+	/// Основная страница приложения.
+	/// </summary>
+	public sealed partial class MainPage : Page
+	{
 		/// <summary>
 		/// Инициалаизирует <see cref="MainPage"/>
 		/// </summary>
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+		public MainPage()
+		{
+			InitializeComponent();
+		}
 
 		/// <summary>
 		/// <inheritdoc/>

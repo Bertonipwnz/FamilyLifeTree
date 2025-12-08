@@ -1,11 +1,11 @@
 ﻿namespace FamilyLifeTree.ViewModels.Pages
 {
-    using Utils.Interfaces;
-    using Utils.Mvvm.ViewModels;
+	using Utils.Interfaces;
+	using Utils.Mvvm.ViewModels;
 
-    /// <summary>
-    /// Модель представления основной страницы.
-    /// </summary>
+	/// <summary>
+	/// Модель представления основной страницы.
+	/// </summary>
 	public class MainPageViewModel : BasePageViewModel
 	{
 		/// <summary>

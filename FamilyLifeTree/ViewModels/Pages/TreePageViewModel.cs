@@ -1,18 +1,18 @@
 ﻿namespace FamilyLifeTree.ViewModels.Pages
 {
-    using Utils.Mvvm.ViewModels;
+	using Utils.Mvvm.ViewModels;
 
-    /// <summary>
-    /// Модель представления страницы древа.
-    /// </summary>
-    public class TreePageViewModel : BasePageViewModel
-    {
-        /// <summary>
-        /// Создает экземпляр <see cref="TreePageViewModel"/>
-        /// </summary>
-        public TreePageViewModel()
-        {
-
-        }
-    }
+	/// <summary>
+	/// Модель представления страницы древа.
+	/// </summary>
+	public class TreePageViewModel : BasePageViewModel
+	{
+		/// <summary>
+		/// Создает экземпляр <see cref="TreePageViewModel"/>
+		/// </summary>
+		public TreePageViewModel()
+		{
+			//TODO: Команды и логика.
+		}
+	}
 }
