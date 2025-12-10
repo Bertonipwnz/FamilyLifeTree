@@ -147,7 +147,7 @@
 			ConfigureRepositories(services);
 
 			services
-				.AddSingleton<INavigationService, NavigationService>()
+				.AddSingleton<INavigationService, UWPNavigationService>()
 				.AddScoped<MainPageViewModel>();
 
 			_serviceProvider = services.BuildServiceProvider();
@@ -297,7 +297,7 @@
 			var navService = _serviceProvider?.GetRequiredService<INavigationService>()
 							 ?? throw new InvalidOperationException("ServiceProvider не инициализирован.");
 
-			if(navService is NavigationService uwpNavService)
+			if(navService is UWPNavigationService uwpNavService)
 				uwpNavService.Initialize(frame);
 		}
 

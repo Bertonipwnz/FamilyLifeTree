@@ -12,7 +12,7 @@
 	/// <summary>
 	/// Сервис навигации для UWP. Платформозависимая реализация.
 	/// </summary>
-	public sealed class NavigationService : INavigationService
+	public sealed class UWPNavigationService : INavigationService
 	{
 		/// <summary>
 		/// Логгер текущего класса.
@@ -22,7 +22,7 @@
 		/// <summary>
 		/// Основной фрейм приложения, выполняющий навигацию.
 		/// </summary>
-		private Frame _frame;
+		private Frame? _frame;
 
 		/// <summary>
 		/// Словарь сопоставления ViewModel → Page.
@@ -37,7 +37,7 @@
 		/// <summary>
 		/// Создаёт экземпляр сервиса навигации.
 		/// </summary>
-		public NavigationService()
+		public UWPNavigationService()
 		{
 			_pageMap = new Dictionary<Type, Type>
 			{
@@ -72,6 +72,9 @@
 		/// <exception cref="KeyNotFoundException">Выбрасывается, если для TViewModel не зарегистрирована страница.</exception>
 		public void NavigateTo<TViewModel>(object? parameter = null) where TViewModel : class
 		{
+			if (_frame == null)
+				return;
+
 			if (!_pageMap.TryGetValue(typeof(TViewModel), out var pageType))
 			{
 				_logger?.Error("Не найдено сопоставление для ViewModel {ViewModelType}", typeof(TViewModel));
@@ -87,6 +90,9 @@
 		/// </summary>
 		public void GoBack()
 		{
+			if (_frame == null)
+				return;
+
 			if (_frame.CanGoBack)
 			{
 				_logger?.Debug("Выполняется возврат назад");
