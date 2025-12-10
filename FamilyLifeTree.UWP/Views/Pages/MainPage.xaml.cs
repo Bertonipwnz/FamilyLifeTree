@@ -1,12 +1,12 @@
 ﻿namespace FamilyLifeTree.UWP.Views.Pages
 {
-    using FamilyLifeTree.ViewModels.Pages;
-    using Windows.UI.Xaml.Navigation;
+	using FamilyLifeTree.ViewModels.Pages;
+	using Windows.UI.Xaml.Navigation;
 
-    /// <summary>
-    /// Основная страница приложения.
-    /// </summary>
-    public sealed partial class MainPage : BasePage
+	/// <summary>
+	/// Основная страница приложения.
+	/// </summary>
+	public sealed partial class MainPage : BasePage
 	{
 		/// <summary>
 		/// Инициалаизирует <see cref="MainPage"/>
