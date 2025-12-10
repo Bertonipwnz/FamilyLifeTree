@@ -148,7 +148,8 @@
 
 			services
 				.AddSingleton<INavigationService, UWPNavigationService>()
-				.AddScoped<MainPageViewModel>();
+				.AddScoped<MainPageViewModel>()
+				.AddScoped<TreePageViewModel>();
 
 			_serviceProvider = services.BuildServiceProvider();
 		}
