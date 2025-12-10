@@ -37,15 +37,11 @@
 		/// <summary>
 		/// Создаёт экземпляр сервиса навигации.
 		/// </summary>
-		/// <param name="frame">Корневой Frame приложения (обычно App.RootFrame или Content как Frame).</param>
-		/// <exception cref="ArgumentNullException">Выбрасывается, если frame равен null.</exception>
-		public NavigationService(Frame frame)
+		public NavigationService()
 		{
-			_frame = frame ?? throw new ArgumentNullException(nameof(frame));
 			_pageMap = new Dictionary<Type, Type>
 			{
 				{ typeof(TreePageViewModel), typeof(TreePage) },
-				{ typeof(SettingsPageViewModel), typeof(SettingsPage) },
 			};
 
 			_logger?.Debug("NavigationService создан и готов к работе");
@@ -57,7 +53,7 @@
 		/// </summary>
 		internal void Initialize(Frame frame)
 		{
-			if (frame != null)
+			if (_frame != null)
 				throw new InvalidOperationException("NavigationService уже инициализирован.");
 
 			if (frame == null) 
