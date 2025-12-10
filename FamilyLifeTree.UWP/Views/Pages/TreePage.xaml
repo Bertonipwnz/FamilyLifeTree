@@ -6,6 +6,7 @@
 	xmlns:local="using:FamilyLifeTree.UWP.Views.Pages"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:pageVM="using:FamilyLifeTree.ViewModels.Pages"
+	x:Name="TreePageRoot"
 	d:DataContext="{d:DesignInstance pageVM:TreePageViewModel}"
 	mc:Ignorable="d">
 
@@ -15,7 +16,11 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
-		<Button />
+		<Button
+			Margin="12,8,0,8"
+			HorizontalAlignment="Left"
+			Command="{Binding AddPersonCommand}"
+			Content="Добавить человека" />
 
 		<ScrollViewer
 			Grid.Row="1"
@@ -24,19 +29,41 @@
 			MinZoomFactor="0.1"
 			VerticalScrollBarVisibility="Hidden"
 			ZoomMode="Enabled">
-			<ItemsControl>
+			<ItemsControl ItemsSource="{Binding Persons}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<Canvas />
+						<Canvas  />
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 
+				<ItemsControl.ItemContainerStyle>
+					<Style TargetType="ContentPresenter">
+						<Setter Property="Canvas.Left" Value="{Binding CanvasLeft}" />
+						<Setter Property="Canvas.Top" Value="{Binding CanvasTop}" />
+					</Style>
+				</ItemsControl.ItemContainerStyle>
+
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Grid
-							Width="50"
-							Height="50"
-							Background="Blue" />
+						<Border
+							Width="120"
+							Height="64"
+							Padding="8"
+							Background="LightSteelBlue"
+							CornerRadius="8">
+							<StackPanel>
+								<TextBlock
+									FontSize="16"
+									FontWeight="SemiBold"
+									Text="{Binding DisplayName}" />
+								<Button
+									Margin="0,8,0,0"
+									HorizontalAlignment="Right"
+									Command="{Binding DataContext.RemovePersonCommand, ElementName=TreePageRoot}"
+									CommandParameter="{Binding}"
+									Content="Удалить" />
+							</StackPanel>
+						</Border>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
