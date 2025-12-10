@@ -45,6 +45,7 @@
 			_pageMap = new Dictionary<Type, Type>
 			{
 				{ typeof(TreePageViewModel), typeof(TreePage) },
+				{ typeof(SettingsPageViewModel), typeof(SettingsPage) },
 			};
 
 			_logger?.Debug("NavigationService создан и готов к работе");
