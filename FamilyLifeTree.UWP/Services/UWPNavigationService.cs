@@ -12,7 +12,7 @@
 	/// <summary>
 	/// Сервис навигации для UWP. Платформозависимая реализация.
 	/// </summary>
-	public sealed class NavigationService : INavigationService
+	public sealed class UWPNavigationService : INavigationService
 	{
 		/// <summary>
 		/// Логгер текущего класса.
@@ -22,7 +22,7 @@
 		/// <summary>
 		/// Основной фрейм приложения, выполняющий навигацию.
 		/// </summary>
-		private Frame _frame;
+		private Frame? _frame;
 
 		/// <summary>
 		/// Словарь сопоставления ViewModel → Page.
@@ -37,11 +37,8 @@
 		/// <summary>
 		/// Создаёт экземпляр сервиса навигации.
 		/// </summary>
-		/// <param name="frame">Корневой Frame приложения (обычно App.RootFrame или Content как Frame).</param>
-		/// <exception cref="ArgumentNullException">Выбрасывается, если frame равен null.</exception>
-		public NavigationService(Frame frame)
+		public UWPNavigationService()
 		{
-			_frame = frame ?? throw new ArgumentNullException(nameof(frame));
 			_pageMap = new Dictionary<Type, Type>
 			{
 				{ typeof(TreePageViewModel), typeof(TreePage) },
@@ -56,7 +53,7 @@
 		/// </summary>
 		internal void Initialize(Frame frame)
 		{
-			if (frame != null)
+			if (_frame != null)
 				throw new InvalidOperationException("NavigationService уже инициализирован.");
 
 			if (frame == null) 
@@ -75,6 +72,9 @@
 		/// <exception cref="KeyNotFoundException">Выбрасывается, если для TViewModel не зарегистрирована страница.</exception>
 		public void NavigateTo<TViewModel>(object? parameter = null) where TViewModel : class
 		{
+			if (_frame == null)
+				return;
+
 			if (!_pageMap.TryGetValue(typeof(TViewModel), out var pageType))
 			{
 				_logger?.Error("Не найдено сопоставление для ViewModel {ViewModelType}", typeof(TViewModel));
@@ -90,6 +90,9 @@
 		/// </summary>
 		public void GoBack()
 		{
+			if (_frame == null)
+				return;
+
 			if (_frame.CanGoBack)
 			{
 				_logger?.Debug("Выполняется возврат назад");

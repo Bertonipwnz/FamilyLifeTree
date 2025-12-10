@@ -7,11 +7,14 @@
 	using FamilyLifeTree.DataAccess.Mappings;
 	using FamilyLifeTree.DataAccess.Repositories;
 	using FamilyLifeTree.UWP.Services;
-	using Microsoft.EntityFrameworkCore;
+    using FamilyLifeTree.UWP.Views.Pages;
+    using FamilyLifeTree.ViewModels.Pages;
+    using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
 	using System;
-	using Utils.Logger;
+    using Utils.Interfaces;
+    using Utils.Logger;
 	using Windows.ApplicationModel;
 	using Windows.ApplicationModel.Activation;
 	using Windows.UI.Xaml;
@@ -70,11 +73,8 @@
 
 			// TODO: Блокировка от двойного запуска.
 
-			// Не повторяем инициализацию приложения, когда в Window уже есть содержимое,
-			// просто убеждаемся, что окно активно.
 			if (Window.Current.Content is not Frame rootFrame)
 			{
-				// Создаем Frame, который будет контекстом навигации, и переходим на первую страницу
 				rootFrame = new Frame();
 				rootFrame.NavigationFailed += OnNavigationFailed;
 
@@ -83,7 +83,6 @@
 					// TODO: Загрузка состояния из ранее приостановленного приложения
 				}
 
-				// Помещаем frame в текущее окно
 				Window.Current.Content = rootFrame;
 			}
 
@@ -91,17 +90,12 @@
 			{
 				if (rootFrame.Content == null)
 				{
-					// Когда стек навигации не восстановлен, переходим на первую страницу,
-					// настраивая новую страницу путем передачи необходимой информации
-					// в качестве параметра навигации.
 					rootFrame.Navigate(typeof(MainPage), e.Arguments);
 				}
 
-				// Убеждаемся, что текущее окно активно
 				Window.Current.Activate();
 			}
 			
-			// Инициализация базы данных
 			InitializeDatabase();
 		}
 
@@ -151,6 +145,11 @@
 			ConfigureAutoMapper(services);
 			ConfigureDatabase(services);
 			ConfigureRepositories(services);
+
+			services
+				.AddSingleton<INavigationService, UWPNavigationService>()
+				.AddScoped<MainPageViewModel>()
+				.AddScoped<TreePageViewModel>();
 
 			_serviceProvider = services.BuildServiceProvider();
 		}
@@ -296,10 +295,11 @@
 			if (frame == null) 
 				throw new ArgumentNullException(nameof(frame));
 
-			var navService = _serviceProvider?.GetRequiredService<NavigationService>()
+			var navService = _serviceProvider?.GetRequiredService<INavigationService>()
 							 ?? throw new InvalidOperationException("ServiceProvider не инициализирован.");
 
-			navService.Initialize(frame);
+			if(navService is UWPNavigationService uwpNavService)
+				uwpNavService.Initialize(frame);
 		}
 
 		#endregion Public Methods

@@ -1,13 +1,12 @@
-﻿namespace FamilyLifeTree.UWP
+﻿namespace FamilyLifeTree.UWP.Views.Pages
 {
 	using FamilyLifeTree.ViewModels.Pages;
-	using Windows.UI.Xaml.Controls;
 	using Windows.UI.Xaml.Navigation;
 
 	/// <summary>
 	/// Основная страница приложения.
 	/// </summary>
-	public sealed partial class MainPage : Page
+	public sealed partial class MainPage : BasePage
 	{
 		/// <summary>
 		/// Инициалаизирует <see cref="MainPage"/>
@@ -22,10 +21,10 @@
 		/// </summary>
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			base.OnNavigatedTo(e);
-
 			App.CurrentApp?.SetNavigationFrame(_appFrame);
-			DataContext = App.CurrentApp?.GetRequiredService<MainPageViewModel>();
+			DataContext = App.CurrentApp?.GetScopedService<MainPageViewModel>();
+
+			base.OnNavigatedTo(e);
 		}
 	}
 }
