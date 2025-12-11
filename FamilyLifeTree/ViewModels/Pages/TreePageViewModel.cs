@@ -1,18 +1,17 @@
 ﻿namespace FamilyLifeTree.ViewModels.Pages
 {
-	using CommunityToolkit.Mvvm.Input;
-	using FamilyLifeTree.Core.Interfaces;
-	using FamilyLifeTree.Core.Models;
-	using FamilyLifeTree.ViewModels.Entities;
-	using System.Collections.ObjectModel;
-	using System.Linq;
-	using System.Threading.Tasks;
-	using Utils.Mvvm.ViewModels;
+    using CommunityToolkit.Mvvm.Input;
+    using FamilyLifeTree.Core.Interfaces;
+    using FamilyLifeTree.Core.Models;
+    using FamilyLifeTree.ViewModels.Entities;
+    using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
+    using Utils.Mvvm.ViewModels;
 
-	/// <summary>
-	/// Модель представления страницы древа.
-	/// </summary>
-	public class TreePageViewModel : BasePageViewModel
+    /// <summary>
+    /// Модель представления страницы древа.
+    /// </summary>
+    public class TreePageViewModel : BasePageViewModel
 	{
 		/// <summary>
 		/// Отступ между карточками на Canvas.
@@ -113,7 +112,7 @@
 			if (!Persons.Contains(personViewModel))
 				return;
 
-			_unitOfWork.Persons.Remove(personViewModel.Model);
+			_unitOfWork.Persons.Remove(personViewModel.GetModel());
 			await _unitOfWork.CompleteAsync();
 
 			Persons.Remove(personViewModel);
@@ -126,8 +125,8 @@
 
 			return new PersonViewModel(person)
 			{
-				CanvasLeft = col * (NodeWidth + NodeMargin),
-				CanvasTop = row * (NodeHeight + NodeMargin)
+				X = col * (NodeWidth + NodeMargin),
+				Y = row * (NodeHeight + NodeMargin)
 			};
 		}
 	}
