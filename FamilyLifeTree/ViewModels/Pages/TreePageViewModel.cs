@@ -70,6 +70,10 @@
 			_ = LoadPersonsAsync();
 		}
 
+		//TODO: Временная заглушка для тестов.
+		/// <summary>
+		/// Загружает людей.
+		/// </summary>
 		private async Task LoadPersonsAsync()
 		{
 			var persons = await _unitOfWork.Persons.GetAllAsync();
@@ -87,6 +91,10 @@
 			_personCounter = Persons.Count + 1;
 		}
 
+		//TODO: Временная заглушка для тестов.
+		/// <summary>
+		/// Добавляет человека.
+		/// </summary>
 		private async Task AddPersonAsync()
 		{
 			var person = new Person
@@ -104,6 +112,11 @@
 			_personCounter++;
 		}
 
+		//TODO: Временная заглушка для тестов.
+		/// <summary>
+		/// Удаляет человека.
+		/// </summary>
+		/// <param name="personViewModel">Модель представления удаляемого объекта.</param>
 		private async Task RemovePersonAsync(PersonViewModel personViewModel)
 		{
 			if (personViewModel == null)
@@ -118,6 +131,12 @@
 			Persons.Remove(personViewModel);
 		}
 
+		//TODO: Временная заглушка для тестов.
+		/// <summary>
+		/// Создает модель представления человека.
+		/// </summary>
+		/// <param name="person">Модель.</param>
+		/// <param name="index">Индекс в коллекции.</param>
 		private PersonViewModel CreateVm(Person person, int index)
 		{
 			var col = index % 5;

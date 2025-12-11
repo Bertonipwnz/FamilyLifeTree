@@ -29,12 +29,18 @@
 		/// </summary>
 		public string DisplayName => _person.ShortName;
 
+		/// <summary>
+		/// <see cref="_x"/>
+		/// </summary>
 		public double X
 		{
 			get => _x;
 			set => SetProperty(ref _x, value);
 		}
 
+		/// <summary>
+		/// <see cref="_y"/>
+		/// </summary>
 		public double Y
 		{
 			get => _y;
@@ -50,6 +56,10 @@
 			_person = model;
 		}
 
+		/// <summary>
+		/// Получает модель.
+		/// </summary>
+		/// <remarks>Чтобы не было привязки в верстке через модель, сделано методом.</remarks>
 		public Person GetModel() => _person;
 	}
 }
