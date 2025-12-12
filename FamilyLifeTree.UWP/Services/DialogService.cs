@@ -1,18 +1,28 @@
-﻿using System;
-using System.Threading.Tasks;
-using Utils.Dialogs.Enums;
-using Utils.Dialogs.Services;
-using Utils.Dialogs.ViewModels;
-using Windows.UI;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-
-namespace FamilyLifeTree.UWP.Services
+﻿namespace FamilyLifeTree.UWP.Services
 {
+	using System;
+	using System.Threading.Tasks;
+	using Utils.Dialogs.Enums;
+	using Utils.Dialogs.Services;
+	using Utils.Dialogs.ViewModels;
+	using Windows.UI;
+	using Windows.UI.Xaml.Controls;
+	using Windows.UI.Xaml.Media;
+
+#nullable enable
+
+	//TODO: Логгирование.
+	/// <summary>
+	/// Сервис диалогов.
+	/// </summary>
 	public class DialogService : IDialogService
 	{
-		private ContentPresenter _host;
+		/// <summary>
+		/// Хост.
+		/// </summary>
+		private ContentPresenter? _host;
 
+		/// <inheritdoc/>
 		public void SetHost(object host)
 		{
 			if (host is ContentPresenter contentPresenter)
@@ -24,6 +34,7 @@ namespace FamilyLifeTree.UWP.Services
 			throw new InvalidOperationException("host is not ContentPresenter.");
 		}
 
+		/// <inheritdoc/>
 		public async Task<DialogResult> ShowAsync(DialogViewModelBase vm)
 		{
 			if (_host == null)
