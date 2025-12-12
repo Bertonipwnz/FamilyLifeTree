@@ -13,6 +13,7 @@
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
 	using System;
+    using Utils.Dialogs.Services;
     using Utils.Interfaces;
     using Utils.Logger;
 	using Windows.ApplicationModel;
@@ -148,6 +149,7 @@
 
 			services
 				.AddSingleton<INavigationService, UWPNavigationService>()
+				.AddSingleton<IDialogService, DialogService>()
 				.AddScoped<MainPageViewModel>()
 				.AddScoped<TreePageViewModel>();
 

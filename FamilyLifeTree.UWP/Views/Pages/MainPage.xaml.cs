@@ -1,7 +1,8 @@
 ﻿namespace FamilyLifeTree.UWP.Views.Pages
 {
 	using FamilyLifeTree.ViewModels.Pages;
-	using Windows.UI.Xaml.Navigation;
+    using Utils.Dialogs.Services;
+    using Windows.UI.Xaml.Navigation;
 
 	/// <summary>
 	/// Основная страница приложения.
@@ -21,8 +22,17 @@
 		/// </summary>
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			App.CurrentApp?.SetNavigationFrame(_appFrame);
-			DataContext = App.CurrentApp?.GetScopedService<MainPageViewModel>();
+			if (App.CurrentApp is App app)
+			{
+				app?.SetNavigationFrame(_appFrame);
+				DataContext = app?.GetScopedService<MainPageViewModel>();
+
+                if (app?.GetRequiredService<IDialogService>() is IDialogService dialogService)
+
+				{
+					dialogService.SetHost(DialogPresenter);
+                }
+            }
 
 			base.OnNavigatedTo(e);
 		}

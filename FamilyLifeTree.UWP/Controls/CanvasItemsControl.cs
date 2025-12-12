@@ -8,7 +8,7 @@
     /// <summary>
     /// Элемент ItemsControl с поддержкой позионирования элементов на Canvas.
     /// </summary>
-    public class CanvasItemsControl : ItemsControl
+    public partial class CanvasItemsControl : ItemsControl
     {
 		/// <inheritdoc/>
 		protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
