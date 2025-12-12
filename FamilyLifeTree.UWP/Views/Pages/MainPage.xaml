@@ -8,7 +8,10 @@
 	mc:Ignorable="d">
 
 	<Grid>
+		<!--  Фрейм приложения.  -->
 		<Frame x:Name="_appFrame" />
+
+		<!--  Хост диалогов.  -->
 		<ContentPresenter x:Name="DialogPresenter" />
 	</Grid>
 </local:BasePage>

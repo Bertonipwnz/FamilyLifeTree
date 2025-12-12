@@ -9,6 +9,8 @@
 	/// </summary>
 	public class PersonViewModel : AbstractEntityViewModel<Person>, IMoveable
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Модель домена.
 		/// </summary>
@@ -23,6 +25,10 @@
 		/// Координата Y на Canvas.
 		/// </summary>
 		private double _y;
+
+		#endregion
+
+		#region Public Properties
 
 		/// <summary>
 		/// Отображаемое имя.
@@ -47,6 +53,10 @@
 			set => SetProperty(ref _y, value);
 		}
 
+		#endregion
+
+		#region Public Constructors
+
 		/// <summary>
 		/// Создает экземпляр <see cref="PersonViewModel"/>
 		/// </summary>
@@ -56,10 +66,16 @@
 			_person = model;
 		}
 
+		#endregion
+
+		#region Public Methods
+
 		/// <summary>
 		/// Получает модель.
 		/// </summary>
 		/// <remarks>Чтобы не было привязки в верстке через модель, сделано методом.</remarks>
 		public Person GetModel() => _person;
+
+		#endregion
 	}
 }
