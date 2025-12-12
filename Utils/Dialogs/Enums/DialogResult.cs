@@ -5,7 +5,7 @@
 	/// </summary>
 	public enum DialogResult
 	{
-		None = -1
+		None = -1,
 		Primary = 0,
 		Cancel = 1,
 		Close = 2,
