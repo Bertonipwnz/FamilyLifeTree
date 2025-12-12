@@ -8,7 +8,7 @@
 	mc:Ignorable="d">
 
 	<Grid>
-
 		<Frame x:Name="_appFrame" />
+		<ContentPresenter x:Name="DialogPresenter" />
 	</Grid>
 </local:BasePage>

@@ -1,65 +1,57 @@
-﻿using FamilyLifeTree.UWP.Controls;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Utils.Dialogs.Enums;
+using Utils.Dialogs.Services;
+using Utils.Dialogs.ViewModels;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace FamilyLifeTree.UWP.Services
 {
-	public class DialogService : IDialogService<UserControl>
+	public class DialogService : IDialogService
 	{
-		private readonly IServiceProvider _serviceProvider;
-		private IDialogHost<UserControl> _host;
+		private ContentPresenter _host;
 
-		public DialogService(IServiceProvider serviceProvider)
+		public void SetHost(object host)
 		{
-			_serviceProvider = serviceProvider;
+			if (host is ContentPresenter contentPresenter)
+			{
+				_host = contentPresenter;
+				return;
+			}
+
+			throw new InvalidOperationException("host is not ContentPresenter.");
 		}
 
-		public void SetHost(IDialogHost<UserControl> host)
-		{
-			_host = host;
-		}
-
-		public async Task ShowAsync(DialogViewModelBase viewModel)
+		public async Task<DialogResult> ShowAsync(DialogViewModelBase vm)
 		{
 			if (_host == null)
-				throw new InvalidOperationException("Dialog host is not set.");
+				throw new InvalidOperationException("Dialog host not configured.");
 
-			// Получаем View через DI
-			var viewType = ResolveViewType(viewModel.GetType());
-			var view = (UserControl)_serviceProvider.GetService(viewType);
-			view.DataContext = viewModel;
+			if (vm.Content is not UserControl control)
+				throw new InvalidOperationException("Content is not UserControl.");
 
-			viewModel.AttachService(this);
-
-			_host.ShowDialog(view);
-			await Task.CompletedTask;
-		}
-
-		public void Close(DialogViewModelBase viewModel)
-		{
-			var viewType = ResolveViewType(viewModel.GetType());
-			var view = FindOpenedView(viewType);
-
-			if (view != null)
-				_host.CloseDialog(view);
-		}
-
-		private Type ResolveViewType(Type viewModelType)
-		{
-			var name = viewModelType.FullName.Replace("ViewModel", "View");
-			return Type.GetType(name);
-		}
-
-		private UserControl FindOpenedView(Type viewType)
-		{
-			// Реализация зависит от хоста
-			return _host switch
+			if (_host.Content == null)
 			{
-				DialogHost host => host.FindView(viewType),
-				_ => null
-			};
+				_host.Content = new Grid()
+				{
+					Background = new SolidColorBrush(Colors.Transparent)
+				};
+			}
+
+			DialogResult result = DialogResult.None;
+
+			if (_host.Content is Grid grid)
+			{
+				grid.Children.Add(control);
+
+				result = await vm.WaitAsync();
+
+				grid.Children.Remove(control);
+			}
+
+			return result;
 		}
 	}
-
 }
