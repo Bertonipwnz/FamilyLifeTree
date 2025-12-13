@@ -9,6 +9,8 @@
 	/// </summary>
 	public partial class BasePage : Page
 	{
+		#region Protected Methods
+
 		/// <inheritdoc/>
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
@@ -30,5 +32,7 @@
 
 			base.OnNavigatedFrom(e);
 		}
+
+		#endregion
 	}
 }

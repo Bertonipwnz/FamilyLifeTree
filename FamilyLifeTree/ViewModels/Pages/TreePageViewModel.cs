@@ -1,18 +1,20 @@
 ﻿namespace FamilyLifeTree.ViewModels.Pages
 {
-    using CommunityToolkit.Mvvm.Input;
-    using FamilyLifeTree.Core.Interfaces;
-    using FamilyLifeTree.Core.Models;
-    using FamilyLifeTree.ViewModels.Entities;
-    using System.Collections.ObjectModel;
-    using System.Threading.Tasks;
-    using Utils.Mvvm.ViewModels;
+	using CommunityToolkit.Mvvm.Input;
+	using FamilyLifeTree.Core.Interfaces;
+	using FamilyLifeTree.Core.Models;
+	using FamilyLifeTree.ViewModels.Entities;
+	using System.Collections.ObjectModel;
+	using System.Threading.Tasks;
+	using Utils.Mvvm.ViewModels;
 
-    /// <summary>
-    /// Модель представления страницы древа.
-    /// </summary>
-    public class TreePageViewModel : BasePageViewModel
+	/// <summary>
+	/// Модель представления страницы древа.
+	/// </summary>
+	public class TreePageViewModel : BasePageViewModel
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Отступ между карточками на Canvas.
 		/// </summary>
@@ -38,6 +40,10 @@
 		/// </summary>
 		private int _personCounter = 1;
 
+		#endregion
+
+		#region Public Properties
+
 		/// <summary>
 		/// Коллекция людей, отображаемых на Canvas.
 		/// </summary>
@@ -53,6 +59,10 @@
 		/// </summary>
 		public IAsyncRelayCommand<PersonViewModel> RemovePersonCommand { get; }
 
+		#endregion
+
+		#region Public Constructors
+
 		/// <summary>
 		/// Создает экземпляр <see cref="TreePageViewModel"/>
 		/// </summary>
@@ -64,11 +74,19 @@
 			RemovePersonCommand = new AsyncRelayCommand<PersonViewModel>(RemovePersonAsync);
 		}
 
+		#endregion
+
+		#region Public Methods
+
 		/// <inheritdoc/>
 		public override void OnNavigatedTo(object param = null)
 		{
 			_ = LoadPersonsAsync();
 		}
+
+		#endregion
+
+		#region Private Methods
 
 		//TODO: Временная заглушка для тестов.
 		/// <summary>
@@ -148,5 +166,7 @@
 				Y = row * (NodeHeight + NodeMargin)
 			};
 		}
+
+		#endregion
 	}
 }
