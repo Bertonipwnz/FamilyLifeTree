@@ -32,10 +32,16 @@
 	/// </summary>
 	public static class LogService
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Текущий экземпляр логгера Serilog.
 		/// </summary>
 		private static Serilog.ILogger _logger;
+
+		#endregion
+
+		#region Constructors
 
 		/// <summary>
 		/// Статический конструктор. Выполняет инициализацию базового логгера.
@@ -50,14 +56,18 @@
 				.WriteTo.Console(theme: AnsiConsoleTheme.Code)
 				.CreateLogger();
 #else
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Debug()
-                .CreateLogger();
+			Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Information()
+				.WriteTo.Debug()
+				.CreateLogger();
 #endif
 
 			_logger = Log.Logger;
 		}
+
+		#endregion
+
+		#region Public Methods
 
 		/// <summary>
 		/// Возвращает текущий экземпляр логгера Serilog.
@@ -81,8 +91,8 @@
 			config.MinimumLevel.Verbose()
 				  .WriteTo.Console(theme: AnsiConsoleTheme.Code);
 #else
-            config.MinimumLevel.Information()
-                  .WriteTo.Debug();
+			config.MinimumLevel.Information()
+				  .WriteTo.Debug();
 #endif
 
 			configure?.Invoke(config);
@@ -90,5 +100,7 @@
 			Log.Logger = config.CreateLogger();
 			_logger = Log.Logger;
 		}
+
+		#endregion
 	}
 }

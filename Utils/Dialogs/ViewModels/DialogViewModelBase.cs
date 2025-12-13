@@ -9,10 +9,16 @@
 	/// </summary>
 	public abstract class DialogViewModelBase
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Источник завершения задачи.
 		/// </summary>
 		private TaskCompletionSource<DialogResult> _tcs;
+
+		#endregion
+
+		#region Public Properties
 
 		/// <summary>
 		/// Ожидает завершения задачи диалога.
@@ -39,6 +45,10 @@
 		/// </summary>
 		public object Content { get; set; }
 
+		#endregion
+
+		#region Public Constructors
+
 		/// <summary>
 		/// Создает экземпляр <see cref="DialogViewModelBase"/>
 		/// </summary>
@@ -49,6 +59,10 @@
 			CancelCommand = new AsyncRelayCommand(OnCancelCommandExecutedAsync);
 			CloseCommand = new AsyncRelayCommand(OnCloseCommandExecutedAsync);
 		}
+
+		#endregion
+
+		#region Protected Methods
 
 		/// <summary>
 		/// <see cref="PrimaryCommand"/>
@@ -74,6 +88,10 @@
 			SetResult(DialogResult.Close);
 		}
 
+		#endregion
+
+		#region Private Methods
+
 		/// <summary>
 		/// Устанавливает результат диалога.
 		/// </summary>
@@ -82,5 +100,7 @@
 		{
 			_tcs?.TrySetResult(result);
 		}
+
+		#endregion
 	}
 }

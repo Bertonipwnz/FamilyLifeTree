@@ -9,6 +9,8 @@
 	public abstract class AbstractEntityViewModel<T> : ObservableObject
 		where T : class
 	{
+		#region Public Constructors
+
 		/// <summary>
 		/// Создает экземпляр <see cref="AbstractEntityViewModel{T}"/>
 		/// </summary>
@@ -17,5 +19,7 @@
 		{
 
 		}
+
+		#endregion
 	}
 }

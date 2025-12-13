@@ -14,6 +14,8 @@
 	/// </summary>
 	public sealed class UWPNavigationService : INavigationService
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Логгер текущего класса.
 		/// </summary>
@@ -34,6 +36,10 @@
 		/// </summary>
 		private bool _isDisposed = false;
 
+		#endregion
+
+		#region Public Constructors
+
 		/// <summary>
 		/// Создаёт экземпляр сервиса навигации.
 		/// </summary>
@@ -47,6 +53,10 @@
 			_logger?.Debug("NavigationService создан и готов к работе");
 		}
 
+		#endregion
+
+		#region Internal Methods
+
 		/// <summary>
 		/// Инициализирует сервис навигации указанным Frame.
 		/// Вызывается один раз из App.SetNavigationFrame().
@@ -56,13 +66,17 @@
 			if (_frame != null)
 				throw new InvalidOperationException("NavigationService уже инициализирован.");
 
-			if (frame == null) 
+			if (frame == null)
 				throw new ArgumentNullException(nameof(frame));
 
 			_frame = frame;
 
 			_logger?.Debug("NavigationService инициализирован с пользовательским Frame");
 		}
+
+		#endregion
+
+		#region Public Methods
 
 		/// <summary>
 		/// Выполняет переход к странице, связанной с указанной моделью представления.
@@ -117,5 +131,7 @@
 			_isDisposed = true;
 			_logger?.Debug("NavigationService disposed");
 		}
+
+		#endregion
 	}
 }

@@ -8,10 +8,16 @@
 	/// </summary>
 	public class BasePageViewModel : ObservableObject, IDisposable
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Уничтожены ли ресурсы?
 		/// </summary>
 		private bool _isDisposed = false;
+
+		#endregion
+
+		#region Public Methods
 
 		/// <summary>
 		/// Обрабатывает навигацию на страницу.
@@ -38,5 +44,7 @@
 
 			_isDisposed = true;
 		}
+
+		#endregion
 	}
 }

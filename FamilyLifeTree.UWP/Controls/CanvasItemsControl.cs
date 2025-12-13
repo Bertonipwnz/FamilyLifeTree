@@ -10,6 +10,8 @@
     /// </summary>
     public partial class CanvasItemsControl : ItemsControl
     {
+		#region Protected Methods
+
 		/// <inheritdoc/>
 		protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
 		{
@@ -47,5 +49,7 @@
 
 			base.ClearContainerForItemOverride(element, item);
 		}
+
+		#endregion
 	}
 }

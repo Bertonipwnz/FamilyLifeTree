@@ -156,6 +156,18 @@
 		}
 
 		/// <summary>
+		/// Финализатор для гарантированного освобождения ресурсов.
+		/// </summary>
+		~UnitOfWork()
+		{
+			Dispose(false);
+		}
+
+		#endregion Public Methods
+
+		#region Protected Methods
+
+		/// <summary>
 		/// Освобождает неуправляемые ресурсы и при необходимости освобождает управляемые ресурсы.
 		/// </summary>
 		/// <param name="disposing">Значение true позволяет освободить управляемые и неуправляемые ресурсы; значение false освобождает только неуправляемые ресурсы.</param>
@@ -173,15 +185,7 @@
 			}
 		}
 
-		/// <summary>
-		/// Финализатор для гарантированного освобождения ресурсов.
-		/// </summary>
-		~UnitOfWork()
-		{
-			Dispose(false);
-		}
-
-		#endregion Public Methods
+		#endregion
 
 		#region Private Methods
 

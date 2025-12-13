@@ -17,10 +17,16 @@
 	/// </summary>
 	public class DialogService : IDialogService
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Хост.
 		/// </summary>
 		private ContentPresenter? _host;
+
+		#endregion
+
+		#region Public Methods
 
 		/// <inheritdoc/>
 		public void SetHost(object host)
@@ -64,5 +70,7 @@
 
 			return result;
 		}
+
+		#endregion
 	}
 }

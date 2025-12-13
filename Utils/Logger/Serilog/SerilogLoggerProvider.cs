@@ -12,6 +12,8 @@
 	/// </summary>
 	public class SerilogLoggerProvider : ILoggerProvider
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Экземпляр Serilog <see cref="Logger"/>.
 		/// </summary>
@@ -21,6 +23,10 @@
 		/// Флаг, указывающий, был ли объект уже освобождён.
 		/// </summary>
 		private bool _disposed = false;
+
+		#endregion
+
+		#region Public Constructors
 
 		/// <summary>
 		/// Создаёт новый провайдер логгирования Serilog 
@@ -38,10 +44,10 @@
 					theme: AnsiConsoleTheme.Code)
 				.CreateLogger();
 #else
-            _logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Debug()
-                .CreateLogger();
+			_logger = new LoggerConfiguration()
+				.MinimumLevel.Information()
+				.WriteTo.Debug()
+				.CreateLogger();
 #endif
 		}
 
@@ -58,6 +64,10 @@
 			_logger = configuration.CreateLogger();
 		}
 
+		#endregion
+
+		#region Public Methods
+
 		/// <inheritdoc/>
 		public Microsoft.Extensions.Logging.ILogger CreateLogger(string categoryName)
 		{
@@ -70,6 +80,10 @@
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
+
+		#endregion
+
+		#region Protected Methods
 
 		/// <summary>
 		/// Освобождает ресурсы, занятые логгером.
@@ -86,5 +100,7 @@
 				_disposed = true;
 			}
 		}
+
+		#endregion
 	}
 }

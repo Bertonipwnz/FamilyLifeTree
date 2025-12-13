@@ -10,6 +10,8 @@
 	/// </summary>
 	public class SerilogLogger : Microsoft.Extensions.Logging.ILogger
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Экземпляр логгера Serilog.
 		/// </summary>
@@ -19,6 +21,10 @@
 		/// Имя категории, переданное из инфраструктуры логгирования Microsoft.
 		/// </summary>
 		private readonly string _categoryName;
+
+		#endregion
+
+		#region Public Constructors
 
 		/// <summary>
 		/// Создаёт новый экземпляр <see cref="SerilogLogger"/>.
@@ -30,6 +36,10 @@
 			_logger = logger.ForContext("SourceContext", categoryName);
 			_categoryName = categoryName;
 		}
+
+		#endregion
+
+		#region Public Methods
 
 		/// <inheritdoc/>
 		public IDisposable BeginScope<TState>(TState state)
@@ -60,6 +70,10 @@
 			_logger.Write(serilogLevel, exception, "[{EventId}] {Message}", eventId, message);
 		}
 
+		#endregion
+
+		#region Private Methods
+
 		/// <summary>
 		/// Преобразует уровень логирования Microsoft в уровень Serilog.
 		/// </summary>
@@ -79,5 +93,7 @@
 				_ => Serilog.Events.LogEventLevel.Information
 			};
 		}
+
+		#endregion
 	}
 }

@@ -8,6 +8,8 @@
 	/// </summary>
 	public sealed partial class TreePage : BasePage
 	{
+		#region Public Constructors
+
 		/// <summary>
 		/// Инициалазирует <see cref="TreePage"/>
 		/// </summary>
@@ -16,11 +18,17 @@
 			this.InitializeComponent();
 		}
 
+		#endregion
+
+		#region Protected Methods
+
 		/// <inheritdoc/>
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			DataContext = App.CurrentApp?.GetRequiredService<TreePageViewModel>();
 			base.OnNavigatedTo(e);
 		}
+
+		#endregion
 	}
 }
