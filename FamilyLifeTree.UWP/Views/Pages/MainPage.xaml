@@ -5,6 +5,8 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FamilyLifeTree.UWP.Views.Pages"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:pageVM="using:FamilyLifeTree.ViewModels.Pages"
+	d:DataContext="{d:DesignInstance pageVM:MainPageViewModel}"
 	mc:Ignorable="d">
 
 	<Grid>
@@ -13,5 +15,17 @@
 
 		<!--  Хост диалогов.  -->
 		<ContentPresenter x:Name="DialogPresenter" />
+
+		<!--  Лоадер приложения.  -->
+		<Grid Visibility="{Binding IsLoaderVisibility}">
+			<Grid.Background>
+				<SolidColorBrush Opacity="0.8" Color="Black" />
+			</Grid.Background>
+
+			<ProgressRing
+				Width="50"
+				Height="50"
+				Foreground="White" />
+		</Grid>
 	</Grid>
 </local:BasePage>

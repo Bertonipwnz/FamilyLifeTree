@@ -7,15 +7,15 @@
 	using FamilyLifeTree.DataAccess.Mappings;
 	using FamilyLifeTree.DataAccess.Repositories;
 	using FamilyLifeTree.UWP.Services;
-    using FamilyLifeTree.UWP.Views.Pages;
-    using FamilyLifeTree.ViewModels.Pages;
-    using Microsoft.EntityFrameworkCore;
+	using FamilyLifeTree.UWP.Views.Pages;
+	using FamilyLifeTree.ViewModels.Pages;
+	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
 	using System;
-    using Utils.Dialogs.Services;
-    using Utils.Interfaces;
-    using Utils.Logger;
+	using Utils.Dialogs.Services;
+	using Utils.Interfaces;
+	using Utils.Logger;
 	using Windows.ApplicationModel;
 	using Windows.ApplicationModel.Activation;
 	using Windows.UI.Xaml;
@@ -71,7 +71,7 @@
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			ConfigureServices();
-
+			InitializeDatabase();
 			// TODO: Блокировка от двойного запуска.
 
 			if (Window.Current.Content is not Frame rootFrame)
@@ -97,7 +97,6 @@
 				Window.Current.Activate();
 			}
 			
-			InitializeDatabase();
 		}
 
 		#endregion Protected Methods
@@ -151,6 +150,7 @@
 				.AddSingleton<INavigationService, UWPNavigationService>()
 				.AddSingleton<IDialogService, DialogService>()
 				.AddScoped<MainPageViewModel>()
+				.AddScoped<StartPageViewModel>()
 				.AddScoped<TreePageViewModel>();
 
 			_serviceProvider = services.BuildServiceProvider();
