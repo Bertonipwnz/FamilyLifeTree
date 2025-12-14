@@ -1,17 +1,22 @@
-﻿	// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace FamilyLifeTree.UWP.Views.Pages
+﻿namespace FamilyLifeTree.UWP.Views.Pages
 {
 	using Windows.UI.Xaml.Controls;
 
 	/// <summary>
-	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// Стартовая страница.
 	/// </summary>
 	public sealed partial class StartPage : Page
 	{
+		#region Public Constructors
+
+		/// <summary>
+		/// Инициализирует <see cref="StartPage"/>
+		/// </summary>
 		public StartPage()
 		{
 			this.InitializeComponent();
 		}
+
+		#endregion
 	}
 }
