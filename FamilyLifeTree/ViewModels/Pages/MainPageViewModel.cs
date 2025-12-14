@@ -1,5 +1,7 @@
 ﻿namespace FamilyLifeTree.ViewModels.Pages
 {
+	using FamilyLifeTree.Core.Interfaces;
+	using System.Linq;
 	using Utils.Interfaces;
 	using Utils.Mvvm.ViewModels;
 
@@ -15,6 +17,29 @@
 		/// </summary>
 		private readonly INavigationService _navigationService;
 
+		/// <summary>
+		/// Unit of Work для работы с БД.
+		/// </summary>
+		private readonly IUnitOfWork _unitOfWork;
+
+		/// <summary>
+		/// Лоадер отображен.
+		/// </summary>
+		private bool _isLoaderVisibility = true;
+
+		#endregion
+
+		#region Public Properties
+
+		/// <summary>
+		/// <see cref="_isLoaderVisibility"/>
+		/// </summary>
+		public bool IsLoaderVisibility
+		{
+			get => _isLoaderVisibility;
+			set => SetProperty(ref _isLoaderVisibility, value);
+		}
+
 		#endregion
 
 		#region Public Constructors
@@ -22,10 +47,10 @@
 		/// <summary>
 		/// Создает экземпляр <see cref="MainPageViewModel"/>
 		/// </summary>
-		/// <param name="navigationService">Сервис навигации.</param>
-		public MainPageViewModel(INavigationService navigationService)
+		public MainPageViewModel(INavigationService navigationService, IUnitOfWork unitOfWork)
 		{
 			_navigationService = navigationService;
+			_unitOfWork = unitOfWork;
 		}
 
 		#endregion
@@ -33,10 +58,22 @@
 		#region Public Methods
 
 		/// <inheritdoc/>
-		public override void OnNavigatedTo(object param = null)
+		public override async void OnNavigatedTo(object param = null)
 		{
-			_navigationService.NavigateTo<TreePageViewModel>();
+			var persons = await _unitOfWork.Persons.GetAllAsync();
+
+			if (persons != null && persons.ToList().Count > 0)
+			{
+				_navigationService.NavigateTo<TreePageViewModel>();
+			}
+			else
+			{
+				_navigationService.NavigateTo<StartPageViewModel>();
+			}
+
 			base.OnNavigatedTo(param);
+
+			IsLoaderVisibility = false;
 		}
 
 		#endregion

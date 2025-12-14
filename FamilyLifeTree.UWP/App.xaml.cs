@@ -151,6 +151,7 @@
 				.AddSingleton<INavigationService, UWPNavigationService>()
 				.AddSingleton<IDialogService, DialogService>()
 				.AddScoped<MainPageViewModel>()
+				.AddScoped<StartPageViewModel>()
 				.AddScoped<TreePageViewModel>();
 
 			_serviceProvider = services.BuildServiceProvider();
