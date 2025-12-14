@@ -29,7 +29,7 @@
 			if (App.CurrentApp is App app)
 			{
 				app?.SetNavigationFrame(_appFrame);
-				DataContext = app?.GetScopedService<MainPageViewModel>();
+				DataContext = app?.GetRequiredService<MainPageViewModel>();
 
 				if (app?.GetRequiredService<IDialogService>() is IDialogService dialogService)
 				{
