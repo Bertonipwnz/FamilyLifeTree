@@ -62,7 +62,7 @@
 		public override async void OnNavigatedTo(object param = null)
 		{
 			var persons = await _unitOfWork.Persons.GetAllAsync();
-
+			
 			if (persons != null && persons.ToList().Count > 0)
 			{
 				_navigationService.NavigateTo<TreePageViewModel>();

@@ -32,7 +32,6 @@
 				DataContext = app?.GetScopedService<MainPageViewModel>();
 
 				if (app?.GetRequiredService<IDialogService>() is IDialogService dialogService)
-
 				{
 					dialogService.SetHost(DialogPresenter);
 				}
