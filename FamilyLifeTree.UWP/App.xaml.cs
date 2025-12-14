@@ -71,7 +71,7 @@
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			ConfigureServices();
-
+			InitializeDatabase();
 			// TODO: Блокировка от двойного запуска.
 
 			if (Window.Current.Content is not Frame rootFrame)
@@ -97,7 +97,6 @@
 				Window.Current.Activate();
 			}
 			
-			InitializeDatabase();
 		}
 
 		#endregion Protected Methods

@@ -2,7 +2,8 @@
 {
 	using FamilyLifeTree.Core.Interfaces;
 	using System.Linq;
-	using Utils.Interfaces;
+    using System.Threading.Tasks;
+    using Utils.Interfaces;
 	using Utils.Mvvm.ViewModels;
 
 	/// <summary>
@@ -72,6 +73,9 @@
 			}
 
 			base.OnNavigatedTo(param);
+
+			//Для отображения интерфейса до скрытия лоадера.
+			await Task.Delay(1000);
 
 			IsLoaderVisibility = false;
 		}
