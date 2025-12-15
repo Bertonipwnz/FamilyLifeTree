@@ -22,7 +22,8 @@
 			<ProgressRing
 				Width="50"
 				Height="50"
-				Foreground="White" />
+				Foreground="White"
+				IsActive="True" />
 		</Grid>
 	</Grid>
 </local:BasePage>

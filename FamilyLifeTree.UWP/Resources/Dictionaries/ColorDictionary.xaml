@@ -7,4 +7,7 @@
 		x:Key="_backgroundDialogsBrush"
 		Opacity="0.8"
 		Color="Black" />
+	
+	<!-- Акцетный цвет текста.-->
+	<Color x:Key="_accentColorText">Black</Color>
 </ResourceDictionary>

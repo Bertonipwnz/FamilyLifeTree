@@ -43,7 +43,7 @@
 					<!-- Имя (обязательное) -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Style="{StaticResource _headerTextBlockStyle}"
 							Text="Имя *" />
 						<TextBox
 							PlaceholderText="Введите имя"
@@ -53,7 +53,7 @@
 					<!-- Фамилия (обязательное) -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Style="{ThemeResource _headerTextBlockStyle}"
 							Text="Фамилия *" />
 						<TextBox
 							PlaceholderText="Введите фамилию"
@@ -63,7 +63,7 @@
 					<!-- Отчество (необязательное) -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Style="{ThemeResource _headerTextBlockStyle}"
 							Text="Отчество" />
 						<TextBox
 							PlaceholderText="Введите отчество (необязательно)"
@@ -73,7 +73,7 @@
 					<!-- Гендер -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Style="{ThemeResource _headerTextBlockStyle}"
 							Text="Пол" />
 						<ComboBox
 							ItemsSource="{Binding Genders}"
@@ -81,7 +81,7 @@
 							PlaceholderText="Выберите пол">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
-									<TextBlock Text="{Binding Converter={StaticResource GenderToStringConverter}}" />
+									<TextBlock Text="{Binding }" />
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
@@ -97,28 +97,28 @@
 						<!-- Дата рождения -->
 						<StackPanel Grid.Column="0" Spacing="8">
 							<TextBlock
-								Style="{ThemeResource BodyStrongTextBlockStyle}"
+								Style="{ThemeResource _headerTextBlockStyle}"
 								Text="Дата рождения" />
 							<DatePicker
 								Date="{Binding BirthDate, Mode=TwoWay}"
-								PlaceholderText="Выберите дату" />
+								Header="Выберите дату" />
 						</StackPanel>
 
 						<!-- Дата смерти -->
 						<StackPanel Grid.Column="1" Spacing="8">
 							<TextBlock
-								Style="{ThemeResource BodyStrongTextBlockStyle}"
+								Style="{ThemeResource _headerTextBlockStyle}"
 								Text="Дата смерти" />
 							<DatePicker
 								Date="{Binding DeathDate, Mode=TwoWay}"
-								PlaceholderText="Выберите дату" />
+								Header="Выберите дату" />
 						</StackPanel>
 					</Grid>
 
 					<!-- Биография -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Style="{ThemeResource _headerTextBlockStyle}"
 							Text="Биография" />
 						<TextBox
 							AcceptsReturn="True"

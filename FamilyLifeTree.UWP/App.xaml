@@ -6,7 +6,11 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
+				<!--  Словари.  -->
 				<ResourceDictionary Source="/Resources/Dictionaries/ColorDictionary.xaml" />
+
+				<!--  Стили.  -->
+				<ResourceDictionary Source="/Resources/Styles/TextBlock/TextBlockStyles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

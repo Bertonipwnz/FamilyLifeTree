@@ -40,6 +40,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="StartPageTitleUid.Text" xml:space="preserve">
-    <value></value>
+    <value>Начало построения дерева</value>
+  </data>
+  <data name="StartPageDescriptionTitleUid.Text" xml:space="preserve">
+    <value>Введите данные человека, от которого начнется построение вашего семейного дерева.</value>
+  </data>
+  <data name="NameUid.Text" xml:space="preserve">
+    <value>Имя *</value>
+  </data>
+  <data name="NameUid.PlaceholderText" xml:space="preserve">
+    <value>Введите имя</value>
+  </data>
+  <data name="SecondNameUid.Text" xml:space="preserve">
+    <value>Фамилия *</value>
+  </data>
+  <data name="SecondNameUid.PlaceholderText" xml:space="preserve">
+    <value>Введите фамилию</value>
   </data>
 </root>
