@@ -57,4 +57,31 @@
   <data name="SecondNameUid.PlaceholderText" xml:space="preserve">
     <value>Введите фамилию</value>
   </data>
+  <data name="GenderUid.Text" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="GenderUid.PlaceholderText" xml:space="preserve">
+    <value>Выберите пол</value>
+  </data>
+  <data name="DateBirthdayUid.Text" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
+  <data name="DateBirthdayUid.Header" xml:space="preserve">
+    <value>Выберите дату</value>
+  </data>
+  <data name="DateDeadUid.Text" xml:space="preserve">
+    <value>Дата смерти</value>
+  </data>
+  <data name="DateDeadUid.Header" xml:space="preserve">
+    <value>Выберите дату</value>
+  </data>
+  <data name="BiographyUid.Text" xml:space="preserve">
+    <value>Биография</value>
+  </data>
+  <data name="BiographyUid.PlaceholderText" xml:space="preserve">
+    <value>Введите краткую биографию (необязательно)</value>
+  </data>
+  <data name="StartBuildTreeUid.Content" xml:space="preserve">
+    <value>Начать построение дерева</value>
+  </data>
 </root>

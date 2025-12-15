@@ -7,14 +7,14 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:pageVM="using:FamilyLifeTree.ViewModels.Pages"
 	d:DataContext="{d:DesignInstance pageVM:StartPageViewModel}"
-	mc:Ignorable="d"
-	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+	mc:Ignorable="d">
 
 	<Grid>
 		<ScrollViewer
 			HorizontalScrollMode="Disabled"
-			VerticalScrollMode="Auto"
-			VerticalScrollBarVisibility="Auto">
+			VerticalScrollBarVisibility="Auto"
+			VerticalScrollMode="Auto">
 			<Grid Margin="24">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -23,120 +23,134 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<!-- Заголовок -->
+				<!--  Заголовок  -->
 				<TextBlock
+					x:Uid="StartPageTitleUid"
 					Grid.Row="0"
 					Margin="0,0,0,32"
-					Style="{ThemeResource TitleTextBlockStyle}"
-					Text="Начало построения дерева" />
+					d:Text="Начало построения дерева"
+					Style="{ThemeResource TitleTextBlockStyle}" />
 
-				<!-- Описание -->
+				<!--  Описание  -->
 				<TextBlock
+					x:Uid="StartPageDescriptionTitleUid"
 					Grid.Row="1"
 					Margin="0,0,0,24"
+					d:Text="Введите данные человека, от которого начнётся построение вашего семейного дерева."
 					Style="{ThemeResource BodyTextBlockStyle}"
-					Text="Введите данные человека, от которого начнётся построение вашего семейного дерева."
 					TextWrapping="Wrap" />
 
-				<!-- Форма ввода данных -->
+				<!--  Форма ввода данных  -->
 				<StackPanel Grid.Row="2" Spacing="20">
-					<!-- Имя (обязательное) -->
+					<!--  Имя (обязательное)  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{StaticResource _headerTextBlockStyle}"
-							Text="Имя *" />
+							x:Uid="NameUid"
+							d:Text="Имя *"
+							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							PlaceholderText="Введите имя"
+							x:Uid="NameUid"
+							d:PlaceholderText="Введите имя"
 							Text="{Binding FirstName, Mode=TwoWay}" />
 					</StackPanel>
 
-					<!-- Фамилия (обязательное) -->
+					<!--  Фамилия (обязательное)  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource _headerTextBlockStyle}"
-							Text="Фамилия *" />
+							x:Uid="SecondNameUid"
+							d:Text="Фамилия *"
+							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							PlaceholderText="Введите фамилию"
+							x:Uid="SecondNameUid"
+							d:PlaceholderText="Введите фамилию"
 							Text="{Binding LastName, Mode=TwoWay}" />
 					</StackPanel>
 
-					<!-- Отчество (необязательное) -->
+					<!--  Отчество (необязательное)  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource _headerTextBlockStyle}"
-							Text="Отчество" />
+							x:Uid="SecondNameUid"
+							d:Text="Отчество"
+							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							PlaceholderText="Введите отчество (необязательно)"
+							x:Uid="SecondNameUid"
+							d:PlaceholderText="Введите отчество (необязательно)"
 							Text="{Binding MiddleName, Mode=TwoWay}" />
 					</StackPanel>
 
-					<!-- Гендер -->
+					<!--  Гендер  -->
 					<StackPanel Spacing="8">
-						<TextBlock
-							Style="{ThemeResource _headerTextBlockStyle}"
-							Text="Пол" />
+						<TextBlock x:Uid="GenderUid" Style="{StaticResource _headerTextBlockStyle}" />
 						<ComboBox
+							x:Uid="GenderUid"
+							d:PlaceholderText="Выберите пол"
 							ItemsSource="{Binding Genders}"
-							SelectedItem="{Binding Gender, Mode=TwoWay}"
-							PlaceholderText="Выберите пол">
+							SelectedItem="{Binding Gender, Mode=TwoWay}">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
-									<TextBlock Text="{Binding }" />
+									<TextBlock Text="{Binding}" />
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
 					</StackPanel>
 
-					<!-- Даты рождения и смерти -->
+					<!--  Даты рождения и смерти  -->
 					<Grid ColumnSpacing="16">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 
-						<!-- Дата рождения -->
+						<!--  Дата рождения  -->
 						<StackPanel Grid.Column="0" Spacing="8">
 							<TextBlock
-								Style="{ThemeResource _headerTextBlockStyle}"
-								Text="Дата рождения" />
+								x:Uid="DateBirthdayUid"
+								d:Text="Дата рождения"
+								Style="{StaticResource _headerTextBlockStyle}" />
 							<DatePicker
-								Date="{Binding BirthDate, Mode=TwoWay}"
-								Header="Выберите дату" />
+								x:Uid="DateBirthdayUid"
+								d:Header="Выберите дату"
+								Date="{Binding BirthDate, Mode=TwoWay}" />
 						</StackPanel>
 
-						<!-- Дата смерти -->
+						<!--  Дата смерти  -->
 						<StackPanel Grid.Column="1" Spacing="8">
 							<TextBlock
-								Style="{ThemeResource _headerTextBlockStyle}"
-								Text="Дата смерти" />
+								x:Uid="DateDeadUid"
+								d:Text="Дата смерти"
+								Style="{StaticResource _headerTextBlockStyle}" />
 							<DatePicker
-								Date="{Binding DeathDate, Mode=TwoWay}"
-								Header="Выберите дату" />
+								x:Uid="DateDeadUid"
+								d:Header="Выберите дату"
+								Date="{Binding DeathDate, Mode=TwoWay}" />
 						</StackPanel>
 					</Grid>
 
-					<!-- Биография -->
+					<!--  Биография  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							Style="{ThemeResource _headerTextBlockStyle}"
-							Text="Биография" />
+							x:Uid="BiographyUid"
+							d:Text="Биография"
+							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							AcceptsReturn="True"
+							x:Uid="BiographyUid"
 							Height="120"
-							PlaceholderText="Введите краткую биографию (необязательно)"
+							d:PlaceholderText="Введите краткую биографию (необязательно)"
+							AcceptsReturn="True"
 							ScrollViewer.VerticalScrollBarVisibility="Auto"
 							Text="{Binding Biography, Mode=TwoWay}"
 							TextWrapping="Wrap" />
 					</StackPanel>
 				</StackPanel>
 
-				<!-- Кнопка создания -->
+				<!--  Кнопка создания  -->
 				<Button
+					x:Uid="StartBuildTreeUid"
 					Grid.Row="3"
 					Margin="0,32,0,0"
 					HorizontalAlignment="Stretch"
+					d:Content="Начать построение дерева"
 					Command="{Binding CreatePersonCommand}"
-					Content="Начать построение дерева"
 					Style="{ThemeResource AccentButtonStyle}" />
 			</Grid>
 		</ScrollViewer>
