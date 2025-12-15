@@ -1,20 +1,20 @@
 ﻿namespace FamilyLifeTree.ViewModels.Pages
 {
-    using CommunityToolkit.Mvvm.Input;
-    using FamilyLifeTree.Core.Enums;
-    using FamilyLifeTree.Core.Interfaces;
-    using FamilyLifeTree.Core.Models;
-    using System;
-    using System.Threading.Tasks;
-    using Utils.Interfaces;
-    using Utils.Mvvm.ViewModels;
+	using CommunityToolkit.Mvvm.Input;
+	using FamilyLifeTree.Core.Enums;
+	using FamilyLifeTree.Core.Interfaces;
+	using FamilyLifeTree.Core.Models;
+	using System;
+	using System.Threading.Tasks;
+	using Utils.Interfaces;
+	using Utils.Mvvm.ViewModels;
 
 #nullable enable
 
-    /// <summary>
-    /// Модель представления стартовой страницы.
-    /// </summary>
-    public class StartPageViewModel : BasePageViewModel
+	/// <summary>
+	/// Модель представления стартовой страницы.
+	/// </summary>
+	public class StartPageViewModel : BasePageViewModel
 	{
 		#region Private Fields
 
