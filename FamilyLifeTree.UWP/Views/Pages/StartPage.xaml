@@ -45,11 +45,11 @@
 					<!--  Имя (обязательное)  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							x:Uid="NameUid"
+							x:Uid="NameLabelUid"
 							d:Text="Имя *"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							x:Uid="NameUid"
+							x:Uid="NameInputUid"
 							d:PlaceholderText="Введите имя"
 							Text="{Binding FirstName, Mode=TwoWay}" />
 					</StackPanel>
@@ -57,11 +57,11 @@
 					<!--  Фамилия (обязательное)  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							x:Uid="SecondNameUid"
+							x:Uid="SecondNameLabelUid"
 							d:Text="Фамилия *"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							x:Uid="SecondNameUid"
+							x:Uid="SecondNameInputUid"
 							d:PlaceholderText="Введите фамилию"
 							Text="{Binding LastName, Mode=TwoWay}" />
 					</StackPanel>
@@ -69,20 +69,20 @@
 					<!--  Отчество (необязательное)  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							x:Uid="SecondNameUid"
+							x:Uid="MiddleNameLabelUid"
 							d:Text="Отчество"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							x:Uid="SecondNameUid"
+							x:Uid="MiddleNameInputUid"
 							d:PlaceholderText="Введите отчество (необязательно)"
 							Text="{Binding MiddleName, Mode=TwoWay}" />
 					</StackPanel>
 
 					<!--  Гендер  -->
 					<StackPanel Spacing="8">
-						<TextBlock x:Uid="GenderUid" Style="{StaticResource _headerTextBlockStyle}" />
+						<TextBlock x:Uid="GenderLabelUid" Style="{StaticResource _headerTextBlockStyle}" />
 						<ComboBox
-							x:Uid="GenderUid"
+							x:Uid="GenderInputUid"
 							d:PlaceholderText="Выберите пол"
 							ItemsSource="{Binding Genders}"
 							SelectedItem="{Binding Gender, Mode=TwoWay}">
@@ -104,11 +104,11 @@
 						<!--  Дата рождения  -->
 						<StackPanel Grid.Column="0" Spacing="8">
 							<TextBlock
-								x:Uid="DateBirthdayUid"
+								x:Uid="DateBirthdayLabelUid"
 								d:Text="Дата рождения"
 								Style="{StaticResource _headerTextBlockStyle}" />
 							<DatePicker
-								x:Uid="DateBirthdayUid"
+								x:Uid="DateBirthdayPickerUid"
 								d:Header="Выберите дату"
 								Date="{Binding BirthDate, Mode=TwoWay}" />
 						</StackPanel>
@@ -116,11 +116,11 @@
 						<!--  Дата смерти  -->
 						<StackPanel Grid.Column="1" Spacing="8">
 							<TextBlock
-								x:Uid="DateDeadUid"
+								x:Uid="DateDeadLabelUid"
 								d:Text="Дата смерти"
 								Style="{StaticResource _headerTextBlockStyle}" />
 							<DatePicker
-								x:Uid="DateDeadUid"
+								x:Uid="DateDeadPickerUid"
 								d:Header="Выберите дату"
 								Date="{Binding DeathDate, Mode=TwoWay}" />
 						</StackPanel>
@@ -129,11 +129,11 @@
 					<!--  Биография  -->
 					<StackPanel Spacing="8">
 						<TextBlock
-							x:Uid="BiographyUid"
+							x:Uid="BiographyLabelUid"
 							d:Text="Биография"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
-							x:Uid="BiographyUid"
+							x:Uid="BiographyInputUid"
 							Height="120"
 							d:PlaceholderText="Введите краткую биографию (необязательно)"
 							AcceptsReturn="True"
