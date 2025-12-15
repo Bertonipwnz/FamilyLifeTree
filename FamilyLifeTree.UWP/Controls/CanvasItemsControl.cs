@@ -1,15 +1,15 @@
 ﻿namespace FamilyLifeTree.UWP.Controls
 {
-    using Utils.Interfaces;
-    using Windows.UI.Xaml;
-    using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Data;
+	using Utils.Interfaces;
+	using Windows.UI.Xaml;
+	using Windows.UI.Xaml.Controls;
+	using Windows.UI.Xaml.Data;
 
-    /// <summary>
-    /// Элемент ItemsControl с поддержкой позионирования элементов на Canvas.
-    /// </summary>
-    public partial class CanvasItemsControl : ItemsControl
-    {
+	/// <summary>
+	/// Элемент ItemsControl с поддержкой позионирования элементов на Canvas.
+	/// </summary>
+	public partial class CanvasItemsControl : ItemsControl
+	{
 		#region Protected Methods
 
 		/// <inheritdoc/>
