@@ -5,7 +5,6 @@
     using FamilyLifeTree.Core.Interfaces;
     using FamilyLifeTree.Core.Models;
     using System;
-    using System.Linq;
     using System.Threading.Tasks;
     using Utils.Interfaces;
     using Utils.Mvvm.ViewModels;
@@ -74,18 +73,75 @@
 		public string FirstName
 		{
 			get => _firstName;
-			set => SetProperty(ref _firstName, value);
+			set
+			{
+				SetProperty(ref _firstName, value);
+				CreatePersonCommand?.NotifyCanExecuteChanged();
+			}
+		}
+
+		/// <summary>
+		/// <see cref="_lastName"/>
+		/// </summary>
+		public string LastName
+		{
+			get => _lastName;
+			set
+			{
+				SetProperty(ref _lastName, value);
+				CreatePersonCommand?.NotifyCanExecuteChanged();
+			}
+		}
+
+		/// <summary>
+		/// <see cref="_middleName"/>
+		/// </summary>
+		public string? MiddleName
+		{
+			get => _middleName;
+			set => SetProperty(ref _middleName, value);
+		}
+
+		/// <summary>
+		/// <see cref="_birthDate"/>
+		/// </summary>
+		public DateTimeOffset? BirthDate
+		{
+			get => _birthDate;
+			set => SetProperty(ref _birthDate, value);
+		}
+
+		/// <summary>
+		/// <see cref="_deathDate"/>
+		/// </summary>
+		public DateTimeOffset? DeathDate
+		{
+			get => _deathDate;
+			set => SetProperty(ref _deathDate, value);
+		}
+
+		/// <summary>
+		/// <see cref="_gender"/>
+		/// </summary>
+		public Gender Gender
+		{
+			get => _gender;
+			set => SetProperty(ref _gender, value);
+		}
+
+		/// <summary>
+		/// <see cref="_biography"/>
+		/// </summary>
+		public string? Biography
+		{
+			get => _biography;
+			set => SetProperty(ref _biography, value);
 		}
 
 		/// <summary>
 		/// Команда создания персоны и начала построения дерева.
 		/// </summary>
 		public IAsyncRelayCommand CreatePersonCommand { get; }
-
-		/// <summary>
-		/// Доступные значения гендера для ComboBox.
-		/// </summary>
-		public Gender[] Genders => Enum.GetValues(typeof(Gender)).Cast<Gender>().ToArray();
 
 		#endregion
 
@@ -100,7 +156,7 @@
 		{
 			_unitOfWork = unitOfWork;
 			_navigationService = navigationService;
-			CreatePersonCommand = new AsyncRelayCommand(CreatePersonAsync, CanCreatePerson);
+			CreatePersonCommand = new AsyncRelayCommand(OnExecutedCommandCreatePersonAsync, CanExecuteCommandCreatePersonAsync);
 		}
 
 		#endregion
@@ -110,7 +166,7 @@
 		/// <summary>
 		/// Создает персону и переходит к дереву.
 		/// </summary>
-		private async Task CreatePersonAsync()
+		private async Task OnExecutedCommandCreatePersonAsync()
 		{
 			if (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName))
 				return;
@@ -135,29 +191,9 @@
 		/// <summary>
 		/// Проверяет, можно ли создать персону.
 		/// </summary>
-		private bool CanCreatePerson()
+		private bool CanExecuteCommandCreatePersonAsync()
 		{
 			return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName);
-		}
-
-		#endregion
-
-		#region Partial Methods
-
-		/// <summary>
-		/// Обработчик изменения свойства FirstName.
-		/// </summary>
-		partial void OnFirstNameChanged(string value)
-		{
-			CreatePersonCommand.NotifyCanExecuteChanged();
-		}
-
-		/// <summary>
-		/// Обработчик изменения свойства LastName.
-		/// </summary>
-		partial void OnLastNameChanged(string value)
-		{
-			CreatePersonCommand.NotifyCanExecuteChanged();
 		}
 
 		#endregion
