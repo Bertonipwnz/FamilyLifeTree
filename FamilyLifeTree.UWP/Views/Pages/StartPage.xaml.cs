@@ -1,11 +1,12 @@
 ﻿namespace FamilyLifeTree.UWP.Views.Pages
 {
-	using Windows.UI.Xaml.Controls;
+	using FamilyLifeTree.ViewModels.Pages;
+	using Windows.UI.Xaml.Navigation;
 
 	/// <summary>
 	/// Стартовая страница.
 	/// </summary>
-	public sealed partial class StartPage : Page
+	public sealed partial class StartPage : BasePage
 	{
 		#region Public Constructors
 
@@ -15,6 +16,17 @@
 		public StartPage()
 		{
 			this.InitializeComponent();
+		}
+
+		#endregion
+
+		#region Protected Methods
+
+		/// <inheritdoc/>
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			DataContext = App.CurrentApp?.GetRequiredService<StartPageViewModel>();
+			base.OnNavigatedTo(e);
 		}
 
 		#endregion

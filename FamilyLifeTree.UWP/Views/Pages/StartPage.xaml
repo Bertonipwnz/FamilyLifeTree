@@ -1,14 +1,144 @@
-﻿<Page
-    x:Class="FamilyLifeTree.UWP.Views.Pages.StartPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FamilyLifeTree.UWP.Views.Pages"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+﻿<local:BasePage
+	x:Class="FamilyLifeTree.UWP.Views.Pages.StartPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="using:FamilyLifeTree.UWP.Views.Pages"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:pageVM="using:FamilyLifeTree.ViewModels.Pages"
+	d:DataContext="{d:DesignInstance pageVM:StartPageViewModel}"
+	mc:Ignorable="d"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+	<Grid>
+		<ScrollViewer
+			HorizontalScrollMode="Disabled"
+			VerticalScrollMode="Auto"
+			VerticalScrollBarVisibility="Auto">
+			<Grid Margin="24">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
 
-    </Grid>
-</Page>
+				<!-- Заголовок -->
+				<TextBlock
+					Grid.Row="0"
+					Margin="0,0,0,32"
+					Style="{ThemeResource TitleTextBlockStyle}"
+					Text="Начало построения дерева" />
+
+				<!-- Описание -->
+				<TextBlock
+					Grid.Row="1"
+					Margin="0,0,0,24"
+					Style="{ThemeResource BodyTextBlockStyle}"
+					Text="Введите данные человека, от которого начнётся построение вашего семейного дерева."
+					TextWrapping="Wrap" />
+
+				<!-- Форма ввода данных -->
+				<StackPanel Grid.Row="2" Spacing="20">
+					<!-- Имя (обязательное) -->
+					<StackPanel Spacing="8">
+						<TextBlock
+							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Text="Имя *" />
+						<TextBox
+							PlaceholderText="Введите имя"
+							Text="{Binding FirstName, Mode=TwoWay}" />
+					</StackPanel>
+
+					<!-- Фамилия (обязательное) -->
+					<StackPanel Spacing="8">
+						<TextBlock
+							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Text="Фамилия *" />
+						<TextBox
+							PlaceholderText="Введите фамилию"
+							Text="{Binding LastName, Mode=TwoWay}" />
+					</StackPanel>
+
+					<!-- Отчество (необязательное) -->
+					<StackPanel Spacing="8">
+						<TextBlock
+							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Text="Отчество" />
+						<TextBox
+							PlaceholderText="Введите отчество (необязательно)"
+							Text="{Binding MiddleName, Mode=TwoWay}" />
+					</StackPanel>
+
+					<!-- Гендер -->
+					<StackPanel Spacing="8">
+						<TextBlock
+							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Text="Пол" />
+						<ComboBox
+							ItemsSource="{Binding Genders}"
+							SelectedItem="{Binding Gender, Mode=TwoWay}"
+							PlaceholderText="Выберите пол">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Converter={StaticResource GenderToStringConverter}}" />
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</StackPanel>
+
+					<!-- Даты рождения и смерти -->
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
+						<!-- Дата рождения -->
+						<StackPanel Grid.Column="0" Spacing="8">
+							<TextBlock
+								Style="{ThemeResource BodyStrongTextBlockStyle}"
+								Text="Дата рождения" />
+							<DatePicker
+								Date="{Binding BirthDate, Mode=TwoWay}"
+								PlaceholderText="Выберите дату" />
+						</StackPanel>
+
+						<!-- Дата смерти -->
+						<StackPanel Grid.Column="1" Spacing="8">
+							<TextBlock
+								Style="{ThemeResource BodyStrongTextBlockStyle}"
+								Text="Дата смерти" />
+							<DatePicker
+								Date="{Binding DeathDate, Mode=TwoWay}"
+								PlaceholderText="Выберите дату" />
+						</StackPanel>
+					</Grid>
+
+					<!-- Биография -->
+					<StackPanel Spacing="8">
+						<TextBlock
+							Style="{ThemeResource BodyStrongTextBlockStyle}"
+							Text="Биография" />
+						<TextBox
+							AcceptsReturn="True"
+							Height="120"
+							PlaceholderText="Введите краткую биографию (необязательно)"
+							ScrollViewer.VerticalScrollBarVisibility="Auto"
+							Text="{Binding Biography, Mode=TwoWay}"
+							TextWrapping="Wrap" />
+					</StackPanel>
+				</StackPanel>
+
+				<!-- Кнопка создания -->
+				<Button
+					Grid.Row="3"
+					Margin="0,32,0,0"
+					HorizontalAlignment="Stretch"
+					Command="{Binding CreatePersonCommand}"
+					Content="Начать построение дерева"
+					Style="{ThemeResource AccentButtonStyle}" />
+			</Grid>
+		</ScrollViewer>
+	</Grid>
+</local:BasePage>
