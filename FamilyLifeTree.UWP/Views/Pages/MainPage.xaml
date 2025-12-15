@@ -17,10 +17,7 @@
 		<ContentPresenter x:Name="DialogPresenter" />
 
 		<!--  Лоадер приложения.  -->
-		<Grid Visibility="{Binding IsLoaderVisibility}">
-			<Grid.Background>
-				<SolidColorBrush Opacity="0.8" Color="Black" />
-			</Grid.Background>
+		<Grid Background="{StaticResource _backgroundDialogsBrush}" Visibility="{Binding IsLoaderVisibility}">
 
 			<ProgressRing
 				Width="50"
