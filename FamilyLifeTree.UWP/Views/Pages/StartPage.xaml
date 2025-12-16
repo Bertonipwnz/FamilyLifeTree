@@ -2,6 +2,7 @@
 	x:Class="FamilyLifeTree.UWP.Views.Pages.StartPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:FamilyLifeTree.UWP.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FamilyLifeTree.UWP.Views.Pages"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,6 +10,21 @@
 	d:DataContext="{d:DesignInstance pageVM:StartPageViewModel}"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 	mc:Ignorable="d">
+
+	<local:BasePage.Resources>
+		<!--  Конвертор для отображения текущего состояния поля ввода.  -->
+		<converters:ObjectToObjectConverter x:Key="_validateTextBoxToForegroundConverter">
+			<converters:ObjectToObjectConverter.TrueResult>
+				<SolidColorBrush Color="{StaticResource _accentColorText}" />
+			</converters:ObjectToObjectConverter.TrueResult>
+			<converters:ObjectToObjectConverter.FalseResult>
+				<SolidColorBrush Color="{StaticResource _warningColorText}" />
+			</converters:ObjectToObjectConverter.FalseResult>
+			<converters:ObjectToObjectConverter.TrueValue>
+				<x:Boolean>True</x:Boolean>
+			</converters:ObjectToObjectConverter.TrueValue>
+		</converters:ObjectToObjectConverter>
+	</local:BasePage.Resources>
 
 	<Grid>
 		<ScrollViewer
@@ -47,11 +63,13 @@
 						<TextBlock
 							x:Uid="NameLabelUid"
 							d:Text="Имя *"
+							Foreground="{Binding IsValidateFirstName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
 							x:Uid="NameInputUid"
 							d:PlaceholderText="Введите имя"
-							Text="{Binding FirstName, Mode=TwoWay}" />
+							Foreground="{Binding IsValidateFirstName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
+							Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 					</StackPanel>
 
 					<!--  Фамилия (обязательное)  -->
@@ -59,11 +77,13 @@
 						<TextBlock
 							x:Uid="SecondNameLabelUid"
 							d:Text="Фамилия *"
+							Foreground="{Binding IsValidateLastName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
 							x:Uid="SecondNameInputUid"
 							d:PlaceholderText="Введите фамилию"
-							Text="{Binding LastName, Mode=TwoWay}" />
+							Foreground="{Binding IsValidateLastName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
+							Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 					</StackPanel>
 
 					<!--  Отчество (необязательное)  -->

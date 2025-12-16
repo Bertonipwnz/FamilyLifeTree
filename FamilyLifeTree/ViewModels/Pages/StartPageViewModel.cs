@@ -143,6 +143,16 @@
 		/// </summary>
 		public IAsyncRelayCommand CreatePersonCommand { get; }
 
+		/// <summary>
+		/// Валидно ли имя?
+		/// </summary>
+		public bool IsValidateFirstName => !string.IsNullOrWhiteSpace(FirstName);
+
+		/// <summary>
+		/// Валидна ли фамилия?
+		/// </summary>
+		public bool IsValidateLastName => !string.IsNullOrWhiteSpace(LastName);
+
 		#endregion
 
 		#region Public Constructors
@@ -175,11 +185,11 @@
 			{
 				FirstName = FirstName.Trim(),
 				LastName = LastName.Trim(),
-				MiddleName = string.IsNullOrWhiteSpace(MiddleName) ? null : MiddleName.Trim(),
+				MiddleName = string.IsNullOrWhiteSpace(MiddleName) ? null : MiddleName?.Trim(),
 				BirthDate = BirthDate?.DateTime,
 				DeathDate = DeathDate?.DateTime,
 				Gender = Gender,
-				Biography = string.IsNullOrWhiteSpace(Biography) ? null : Biography.Trim()
+				Biography = string.IsNullOrWhiteSpace(Biography) ? null : Biography?.Trim()
 			};
 
 			await _unitOfWork.Persons.AddAsync(person);
@@ -193,7 +203,10 @@
 		/// </summary>
 		private bool CanExecuteCommandCreatePersonAsync()
 		{
-			return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName);
+			OnPropertyChanged(nameof(IsValidateFirstName));
+			OnPropertyChanged(nameof(IsValidateLastName));
+
+			return IsValidateFirstName && IsValidateLastName;
 		}
 
 		#endregion
