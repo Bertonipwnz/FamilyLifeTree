@@ -1,15 +1,15 @@
 ﻿namespace FamilyLifeTree.UWP.Services
 {
-    using FamilyLifeTree.Core.Interfaces;
-    using Serilog;
-    using System;
-    using Utils.Logger;
-    using Windows.ApplicationModel.Resources;
+	using FamilyLifeTree.Core.Interfaces;
+	using Serilog;
+	using System;
+	using Utils.Logger;
+	using Windows.ApplicationModel.Resources;
 
-    /// <summary>
-    /// Сервис локализации.
-    /// </summary>
-    public class LocalizationService : ILocalizationService
+	/// <summary>
+	/// Сервис локализации.
+	/// </summary>
+	public class LocalizationService : ILocalizationService
 	{
 		#region Private Fields
 
@@ -30,7 +30,17 @@
 		/// <inheritdoc/>
 		public string GetLocalizationString(string resourcesKey, string? resourcesName = null)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				ResourceLoader resourceLoader = resourcesName == null ? _defaultResourceLoader : ResourceLoader.GetForCurrentView(resourcesName) ?? _defaultResourceLoader;
+
+				return resourceLoader.GetString(resourcesKey);
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(ex.Message ?? ex.ToString());
+				return string.Empty;
+			}
 		}
 
 		#endregion
