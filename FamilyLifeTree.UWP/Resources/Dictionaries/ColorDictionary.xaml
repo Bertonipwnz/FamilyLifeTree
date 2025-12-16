@@ -7,7 +7,10 @@
 		x:Key="_backgroundDialogsBrush"
 		Opacity="0.8"
 		Color="Black" />
-	
-	<!-- Акцетный цвет текста.-->
+
+	<!--  Акцетный цвет текста.  -->
 	<Color x:Key="_accentColorText">Black</Color>
+
+	<!--  Цвет текста ошибки или предупреждения.  -->
+	<Color x:Key="_warningColorText">Red</Color>
 </ResourceDictionary>

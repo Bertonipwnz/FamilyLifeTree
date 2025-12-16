@@ -148,6 +148,7 @@
 
 			services
 				.AddSingleton<INavigationService, UWPNavigationService>()
+				.AddSingleton<ILocalizationService, LocalizationService>()
 				.AddSingleton<IDialogService, DialogService>()
 				.AddScoped<MainPageViewModel>()
 				.AddScoped<StartPageViewModel>()
