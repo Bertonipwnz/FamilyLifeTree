@@ -10,7 +10,7 @@
 		/// <summary>
 		/// Регулярное выражене для валидации имени.
 		/// </summary>
-		private static readonly Regex _nameRegex = new(@"^[\p{L}\p{M}]+(?:[ -\p{Pd}][\p{L}\p{M}]+)*$", RegexOptions.Compiled);
+		private static readonly Regex _nameRegex = new(@"^[\p{L}\p{M}\ -]+$", RegexOptions.Compiled);
 
 		/// <summary>
 		/// Проверяет соддержит строку символы для имени.

@@ -160,7 +160,7 @@
 		/// <summary>
 		/// Валидна ли фамилия?
 		/// </summary>
-		public bool IsValidLastName => FirstName.IsLettersOnlyName();
+		public bool IsValidLastName => LastName.IsLettersOnlyName();
 
 		/// <summary>
 		/// Валидна ли дата смерти?

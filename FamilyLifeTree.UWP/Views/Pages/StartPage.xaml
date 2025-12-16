@@ -63,12 +63,12 @@
 						<TextBlock
 							x:Uid="NameLabelUid"
 							d:Text="Имя *"
-							Foreground="{Binding IsValidateFirstName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
+							Foreground="{Binding IsValidFirstName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
 							x:Uid="NameInputUid"
 							d:PlaceholderText="Введите имя"
-							Foreground="{Binding IsValidateFirstName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
+							Foreground="{Binding IsValidFirstName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 							Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 					</StackPanel>
 
@@ -77,12 +77,12 @@
 						<TextBlock
 							x:Uid="SecondNameLabelUid"
 							d:Text="Фамилия *"
-							Foreground="{Binding IsValidateLastName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
+							Foreground="{Binding IsValidLastName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 							Style="{StaticResource _headerTextBlockStyle}" />
 						<TextBox
 							x:Uid="SecondNameInputUid"
 							d:PlaceholderText="Введите фамилию"
-							Foreground="{Binding IsValidateLastName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
+							Foreground="{Binding IsValidLastName, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 							Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 					</StackPanel>
 
