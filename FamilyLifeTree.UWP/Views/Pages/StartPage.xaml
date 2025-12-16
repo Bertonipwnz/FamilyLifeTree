@@ -126,11 +126,13 @@
 							<TextBlock
 								x:Uid="DateBirthdayLabelUid"
 								d:Text="Дата рождения"
+								Foreground="{Binding IsValidBirthDate, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 								Style="{StaticResource _headerTextBlockStyle}" />
 							<DatePicker
 								x:Uid="DateBirthdayPickerUid"
 								d:Header="Выберите дату"
-								Date="{Binding BirthDate, Mode=TwoWay}" />
+								Date="{Binding BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								Foreground="{Binding IsValidBirthDate, Converter={StaticResource _validateTextBoxToForegroundConverter}}" />
 						</StackPanel>
 
 						<!--  Дата смерти  -->
@@ -138,11 +140,13 @@
 							<TextBlock
 								x:Uid="DateDeadLabelUid"
 								d:Text="Дата смерти"
+								Foreground="{Binding IsValidDeathDate, Converter={StaticResource _validateTextBoxToForegroundConverter}}"
 								Style="{StaticResource _headerTextBlockStyle}" />
 							<DatePicker
 								x:Uid="DateDeadPickerUid"
 								d:Header="Выберите дату"
-								Date="{Binding DeathDate, Mode=TwoWay}" />
+								Date="{Binding DeathDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								Foreground="{Binding IsValidDeathDate, Converter={StaticResource _validateTextBoxToForegroundConverter}}" />
 						</StackPanel>
 					</Grid>
 

@@ -6,6 +6,7 @@
 	using FamilyLifeTree.Core.Models;
 	using System;
 	using System.Threading.Tasks;
+	using Utils.Extensions;
 	using Utils.Interfaces;
 	using Utils.Mvvm.ViewModels;
 
@@ -75,8 +76,8 @@
 			get => _firstName;
 			set
 			{
-				SetProperty(ref _firstName, value);
-				CreatePersonCommand?.NotifyCanExecuteChanged();
+				if (SetProperty(ref _firstName, value))
+					CreatePersonCommand?.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -88,8 +89,8 @@
 			get => _lastName;
 			set
 			{
-				SetProperty(ref _lastName, value);
-				CreatePersonCommand?.NotifyCanExecuteChanged();
+				if (SetProperty(ref _lastName, value))
+					CreatePersonCommand?.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -108,7 +109,11 @@
 		public DateTimeOffset? BirthDate
 		{
 			get => _birthDate;
-			set => SetProperty(ref _birthDate, value);
+			set
+			{
+				if (SetProperty(ref _birthDate, value))
+					CreatePersonCommand?.NotifyCanExecuteChanged();
+			}
 		}
 
 		/// <summary>
@@ -117,7 +122,11 @@
 		public DateTimeOffset? DeathDate
 		{
 			get => _deathDate;
-			set => SetProperty(ref _deathDate, value);
+			set
+			{
+				if (SetProperty(ref _deathDate, value))
+					CreatePersonCommand?.NotifyCanExecuteChanged();
+			}
 		}
 
 		/// <summary>
@@ -146,12 +155,22 @@
 		/// <summary>
 		/// Валидно ли имя?
 		/// </summary>
-		public bool IsValidateFirstName => !string.IsNullOrWhiteSpace(FirstName);
+		public bool IsValidFirstName => FirstName.IsLettersOnlyName();
 
 		/// <summary>
 		/// Валидна ли фамилия?
 		/// </summary>
-		public bool IsValidateLastName => !string.IsNullOrWhiteSpace(LastName);
+		public bool IsValidLastName => FirstName.IsLettersOnlyName();
+
+		/// <summary>
+		/// Валидна ли дата смерти?
+		/// </summary>
+		public bool IsValidDeathDate => DeathDate.IsValidDeathDate(BirthDate);
+
+		/// <summary>
+		/// Валидна ли дата рождения?
+		/// </summary>
+		public bool IsValidBirthDate => BirthDate.IsValidDate();
 
 		#endregion
 
@@ -203,10 +222,12 @@
 		/// </summary>
 		private bool CanExecuteCommandCreatePersonAsync()
 		{
-			OnPropertyChanged(nameof(IsValidateFirstName));
-			OnPropertyChanged(nameof(IsValidateLastName));
+			OnPropertyChanged(nameof(IsValidFirstName));
+			OnPropertyChanged(nameof(IsValidLastName));
+			OnPropertyChanged(nameof(IsValidDeathDate));
+			OnPropertyChanged(nameof(IsValidBirthDate));
 
-			return IsValidateFirstName && IsValidateLastName;
+			return IsValidFirstName && IsValidLastName && IsValidDeathDate && IsValidBirthDate;
 		}
 
 		#endregion
