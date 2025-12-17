@@ -1,11 +1,13 @@
 namespace FamilyLifeTree.UWP.Services
 {
-	using System;
+    using Serilog;
+    using System;
 	using System.IO;
 	using System.Linq;
 	using System.Threading.Tasks;
 	using Utils.Interfaces;
-	using Windows.ApplicationModel;
+    using Utils.Logger;
+    using Windows.ApplicationModel;
 	using Windows.Storage;
 
 #nullable enable
@@ -15,6 +17,15 @@ namespace FamilyLifeTree.UWP.Services
 	/// </summary>
 	public class FileService : IFileService
 	{
+		#region Private Fields
+
+		/// <summary>
+		/// Логгер текущего класса.
+		/// </summary>
+		private readonly ILogger _logger = LogService.GetCurrentLogger();
+
+		#endregion
+
 		#region Public Methods
 
 		/// <inheritdoc />
@@ -22,6 +33,7 @@ namespace FamilyLifeTree.UWP.Services
 		{
 			if (string.IsNullOrWhiteSpace(relativePath))
 			{
+				_logger?.Error("Path must not be empty.", nameof(ExistsInInstalledPathAsync));
 				throw new ArgumentException("Path must not be empty.", nameof(relativePath));
 			}
 
@@ -32,14 +44,16 @@ namespace FamilyLifeTree.UWP.Services
 
 				return true;
 			}
-			catch (FileNotFoundException)
+			catch (FileNotFoundException fileException)
 			{
-				//TODO: Логгирование.
+				_logger?.Error(fileException.Message ?? fileException.ToString());
+
 				return false;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				//TODO: Логгирование.
+				_logger?.Error(ex.Message ?? ex.ToString());
+
 				return false;
 			}
 		}
@@ -49,6 +63,7 @@ namespace FamilyLifeTree.UWP.Services
 		{
 			if (string.IsNullOrWhiteSpace(relativePath))
 			{
+				_logger?.Error("Path must not be empty.", nameof(ExistsInLocalPathAsync));
 				throw new ArgumentException("Path must not be empty.", nameof(relativePath));
 			}
 
@@ -59,14 +74,16 @@ namespace FamilyLifeTree.UWP.Services
 
 				return true;
 			}
-			catch (FileNotFoundException)
+			catch (FileNotFoundException fileException)
 			{
-				//TODO: Логгирование.
+				_logger?.Error(fileException.Message ?? fileException.ToString());
+
 				return false;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				//TODO: Логгирование.
+				_logger?.Error(ex.Message ?? ex.ToString());
+
 				return false;
 			}
 		}
@@ -76,6 +93,7 @@ namespace FamilyLifeTree.UWP.Services
 		{
 			if (string.IsNullOrWhiteSpace(relativePath))
 			{
+				_logger?.Error("Path must not be empty.", nameof(OpenReadFromInstalledPathAsync));
 				throw new ArgumentException("Path must not be empty.", nameof(relativePath));
 			}
 
@@ -83,7 +101,7 @@ namespace FamilyLifeTree.UWP.Services
 			var file = await folder
 				.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'));
 
-			return await file.OpenStreamForReadAsync().ConfigureAwait(false);
+			return await file.OpenStreamForReadAsync();
 		}
 
 		/// <inheritdoc />
@@ -91,6 +109,7 @@ namespace FamilyLifeTree.UWP.Services
 		{
 			if (string.IsNullOrWhiteSpace(relativePath))
 			{
+				_logger?.Error("Path must not be empty.", nameof(OpenReadFromLocalPathAsync));
 				throw new ArgumentException("Path must not be empty.", nameof(relativePath));
 			}
 
@@ -98,7 +117,7 @@ namespace FamilyLifeTree.UWP.Services
 			var file = await folder
 				.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'));
 
-			return await file.OpenStreamForReadAsync().ConfigureAwait(false);
+			return await file.OpenStreamForReadAsync();
 		}
 
 		/// <inheritdoc />
@@ -106,6 +125,7 @@ namespace FamilyLifeTree.UWP.Services
 		{
 			if (string.IsNullOrWhiteSpace(relativePath))
 			{
+				_logger?.Error("Path must not be empty.", nameof(OpenOrCreateLocalFileAsync));
 				throw new ArgumentException("Path must not be empty.", nameof(relativePath));
 			}
 
@@ -117,6 +137,7 @@ namespace FamilyLifeTree.UWP.Services
 
 			if (segments.Length == 0)
 			{
+				_logger?.Error("Path must contain file name.", nameof(OpenOrCreateLocalFileAsync));
 				throw new ArgumentException("Path must contain file name.", nameof(relativePath));
 			}
 
@@ -145,7 +166,6 @@ namespace FamilyLifeTree.UWP.Services
 				using (var reader = new StreamReader(stream))
 				{
 					return await reader.ReadToEndAsync();
-
 				}
 			}
 		}
