@@ -16,7 +16,9 @@
 	using Utils.Dialogs.Services;
 	using Utils.Interfaces;
 	using Utils.Logger;
-	using Windows.ApplicationModel;
+    using Utils.Serialization.Services;
+    using Utils.Serialization.Services.Interfaces;
+    using Windows.ApplicationModel;
 	using Windows.ApplicationModel.Activation;
 	using Windows.UI.Xaml;
 	using Windows.UI.Xaml.Controls;
@@ -59,7 +61,6 @@
 		public App()
 		{
 			InitializeComponent();
-
 			Suspending += OnSuspending;
 		}
 
@@ -147,6 +148,8 @@
 			ConfigureRepositories(services);
 
 			services
+				.AddSingleton<IFileService, FileService>()
+				.AddSingleton<IJsonSerializationService, JsonSerializationService>()
 				.AddSingleton<INavigationService, UWPNavigationService>()
 				.AddSingleton<ILocalizationService, LocalizationService>()
 				.AddSingleton<IDialogService, DialogService>()
