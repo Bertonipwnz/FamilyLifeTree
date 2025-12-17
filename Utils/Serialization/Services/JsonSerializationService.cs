@@ -1,7 +1,9 @@
 namespace Utils.Serialization.Services
 {
+    using Serilog;
     using System;
     using System.Text.Json;
+    using Utils.Logger;
     using Utils.Serialization.Services.Interfaces;
 
 #nullable enable
@@ -17,6 +19,11 @@ namespace Utils.Serialization.Services
 		/// Дефолтные опции.
 		/// </summary>
 		private readonly JsonSerializerOptions _defaultOptions;
+
+		/// <summary>
+		/// Логгер.
+		/// </summary>
+		private readonly ILogger _logger = LogService.GetCurrentLogger();
 
 		#endregion
 
@@ -41,7 +48,18 @@ namespace Utils.Serialization.Services
 		/// <inheritdoc />
 		public string Serialize<T>(T value, JsonSerializerOptions? options = null)
 		{
-			return JsonSerializer.Serialize(value, options ?? _defaultOptions);
+			try
+			{
+				var result = JsonSerializer.Serialize(value, options ?? _defaultOptions);
+				_logger?.Debug("Serialized {Type} to JSON: {Json}", typeof(T).Name, result);
+
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(ex, "Failed to serialize {Type}", typeof(T).Name);
+				throw;
+			}
 		}
 
 		/// <inheritdoc />
@@ -52,13 +70,37 @@ namespace Utils.Serialization.Services
 				return "null";
 			}
 
-			return JsonSerializer.Serialize(value, value.GetType(), options ?? _defaultOptions);
+			var type = value.GetType();
+
+			try
+			{
+				var result = JsonSerializer.Serialize(value, type, options ?? _defaultOptions);
+				_logger?.Debug("Serialized {Type} to JSON: {Json}", type.Name, result);
+				
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(ex, "Failed to serialize {Type}", type.Name);
+				throw;
+			}
 		}
 
 		/// <inheritdoc />
 		public T? Deserialize<T>(string json, JsonSerializerOptions? options = null)
 		{
-			return JsonSerializer.Deserialize<T>(json, options ?? _defaultOptions);
+			try
+			{
+				var result = JsonSerializer.Deserialize<T>(json, options ?? _defaultOptions);
+				_logger?.Debug("Deserialized JSON to {Type}: {Json}", typeof(T).Name, json);
+				
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(ex, "Failed to deserialize JSON to {Type}: {Json}", typeof(T).Name, json);
+				throw;
+			}
 		}
 
 		/// <inheritdoc />
@@ -69,7 +111,18 @@ namespace Utils.Serialization.Services
 				throw new ArgumentNullException(nameof(returnType));
 			}
 
-			return JsonSerializer.Deserialize(json, returnType, options ?? _defaultOptions);
+			try
+			{
+				var result = JsonSerializer.Deserialize(json, returnType, options ?? _defaultOptions);
+				_logger?.Debug("Deserialized JSON to {Type}: {Json}", returnType.Name, json);
+				
+				return result;
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(ex, "Failed to deserialize JSON to {Type}: {Json}", returnType.Name, json);
+				throw;
+			}
 		}
 
 		#endregion
