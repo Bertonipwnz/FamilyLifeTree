@@ -15,6 +15,8 @@ namespace FamilyLifeTree.UWP.Services
 	/// </summary>
 	public class FileService : IFileService
 	{
+		#region Public Methods
+
 		/// <inheritdoc />
 		public async Task<bool> ExistsInInstalledPathAsync(string relativePath)
 		{
@@ -26,18 +28,18 @@ namespace FamilyLifeTree.UWP.Services
 			try
 			{
 				var folder = Package.Current.InstalledLocation;
-				_ = await folder.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'))
-					.AsTask().ConfigureAwait(false);
+				_ = await folder.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'));
 
 				return true;
 			}
 			catch (FileNotFoundException)
 			{
+				//TODO: Логгирование.
 				return false;
 			}
 			catch (Exception)
 			{
-				// Для любых других ошибок считаем, что файла нет.
+				//TODO: Логгирование.
 				return false;
 			}
 		}
@@ -53,17 +55,18 @@ namespace FamilyLifeTree.UWP.Services
 			try
 			{
 				var folder = ApplicationData.Current.LocalFolder;
-				_ = await folder.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'))
-					.AsTask().ConfigureAwait(false);
+				_ = await folder.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'));
 
 				return true;
 			}
 			catch (FileNotFoundException)
 			{
+				//TODO: Логгирование.
 				return false;
 			}
 			catch (Exception)
 			{
+				//TODO: Логгирование.
 				return false;
 			}
 		}
@@ -78,8 +81,7 @@ namespace FamilyLifeTree.UWP.Services
 
 			var folder = Package.Current.InstalledLocation;
 			var file = await folder
-				.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'))
-				.AsTask().ConfigureAwait(false);
+				.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'));
 
 			return await file.OpenStreamForReadAsync().ConfigureAwait(false);
 		}
@@ -94,8 +96,7 @@ namespace FamilyLifeTree.UWP.Services
 
 			var folder = ApplicationData.Current.LocalFolder;
 			var file = await folder
-				.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'))
-				.AsTask().ConfigureAwait(false);
+				.GetFileAsync(relativePath.Replace(Path.DirectorySeparatorChar, '\\'));
 
 			return await file.OpenStreamForReadAsync().ConfigureAwait(false);
 		}
@@ -126,45 +127,55 @@ namespace FamilyLifeTree.UWP.Services
 			for (var i = 0; i < segments.Length - 1; i++)
 			{
 				currentFolder = await currentFolder
-					.CreateFolderAsync(segments[i], CreationCollisionOption.OpenIfExists)
-					.AsTask().ConfigureAwait(false);
+					.CreateFolderAsync(segments[i], CreationCollisionOption.OpenIfExists);
 			}
 
 			var file = await currentFolder
-				.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists)
-				.AsTask().ConfigureAwait(false);
+				.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
 
 			// Открываем поток с возможностью чтения и записи
-			return await file.OpenStreamForWriteAsync().ConfigureAwait(false);
+			return await file.OpenStreamForWriteAsync();
 		}
 
 		/// <inheritdoc />
 		public async Task<string> ReadAllTextFromInstalledPathAsync(string relativePath)
 		{
-			using var stream = await OpenReadFromInstalledPathAsync(relativePath).ConfigureAwait(false);
-			using var reader = new StreamReader(stream);
-			return await reader.ReadToEndAsync().ConfigureAwait(false);
+			using (var stream = await OpenReadFromInstalledPathAsync(relativePath))
+			{
+				using (var reader = new StreamReader(stream))
+				{
+					return await reader.ReadToEndAsync();
+
+				}
+			}
 		}
 
 		/// <inheritdoc />
 		public async Task<string> ReadAllTextFromLocalPathAsync(string relativePath)
 		{
-			using var stream = await OpenReadFromLocalPathAsync(relativePath).ConfigureAwait(false);
-			using var reader = new StreamReader(stream);
-			return await reader.ReadToEndAsync().ConfigureAwait(false);
+			using (var stream = await OpenReadFromLocalPathAsync(relativePath))
+			{
+				using var reader = new StreamReader(stream);
+				return await reader.ReadToEndAsync();
+			}
 		}
 
 		/// <inheritdoc />
 		public async Task WriteAllTextToLocalPathAsync(string relativePath, string contents)
 		{
-			// Создаём/открываем файл и перезаписываем содержимое.
-			using var stream = await OpenOrCreateLocalFileAsync(relativePath).ConfigureAwait(false);
-			stream.SetLength(0); // очищаем файл
+			using (var stream = await OpenOrCreateLocalFileAsync(relativePath))
+			{
+				stream.SetLength(0);
 
-			using var writer = new StreamWriter(stream);
-			await writer.WriteAsync(contents).ConfigureAwait(false);
-			await writer.FlushAsync().ConfigureAwait(false);
+				using (var writer = new StreamWriter(stream))
+				{
+					await writer.WriteAsync(contents);
+					await writer.FlushAsync();
+				}
+			}
 		}
+
+		#endregion
 	}
 }
 

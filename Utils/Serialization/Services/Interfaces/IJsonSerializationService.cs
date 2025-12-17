@@ -1,4 +1,4 @@
-namespace Utils.Interfaces
+namespace Utils.Serialization.Services.Interfaces
 {
 	using System;
 	using System.Text.Json;

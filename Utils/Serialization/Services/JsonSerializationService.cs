@@ -1,17 +1,26 @@
-namespace Utils.Serialization
+namespace Utils.Serialization.Services
 {
-	using System;
-	using System.Text.Json;
-	using Utils.Interfaces;
+    using System;
+    using System.Text.Json;
+    using Utils.Serialization.Services.Interfaces;
 
 #nullable enable
 
-	/// <summary>
-	/// Реализация <see cref="IJsonSerializationService"/> на базе <see cref="JsonSerializer"/>.
-	/// </summary>
-	public class JsonSerializationService : IJsonSerializationService
+    /// <summary>
+    /// Реализация <see cref="IJsonSerializationService"/> на базе <see cref="JsonSerializer"/>.
+    /// </summary>
+    public class JsonSerializationService : IJsonSerializationService
 	{
+		#region Private Fields
+
+		/// <summary>
+		/// Дефолтные опции.
+		/// </summary>
 		private readonly JsonSerializerOptions _defaultOptions;
+
+		#endregion
+
+		#region Public Methods
 
 		/// <summary>
 		/// Инициализирует новый экземпляр класса <see cref="JsonSerializationService"/>.
@@ -62,6 +71,8 @@ namespace Utils.Serialization
 
 			return JsonSerializer.Deserialize(json, returnType, options ?? _defaultOptions);
 		}
+
+		#endregion
 	}
 }
 
