@@ -1,13 +1,13 @@
 namespace FamilyLifeTree.UWP.Services
 {
-    using Serilog;
-    using System;
+	using Serilog;
+	using System;
 	using System.IO;
 	using System.Linq;
 	using System.Threading.Tasks;
 	using Utils.Interfaces;
-    using Utils.Logger;
-    using Windows.ApplicationModel;
+	using Utils.Logger;
+	using Windows.ApplicationModel;
 	using Windows.Storage;
 
 #nullable enable
