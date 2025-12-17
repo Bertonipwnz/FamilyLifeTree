@@ -167,15 +167,22 @@
 					</StackPanel>
 				</StackPanel>
 
-				<!--  Кнопка создания  -->
-				<Button
-					x:Uid="StartBuildTreeUid"
-					Grid.Row="3"
-					Margin="0,32,0,0"
-					HorizontalAlignment="Stretch"
-					d:Content="Начать построение дерева"
-					Command="{Binding CreatePersonCommand}"
-					Style="{ThemeResource AccentButtonStyle}" />
+				<StackPanel Grid.Row="3" Margin="0,32,0,0">
+					<!--  Кнопка создания  -->
+					<Button
+						x:Uid="StartBuildTreeUid"
+						HorizontalAlignment="Stretch"
+						d:Content="Начать построение дерева"
+						Command="{Binding CreatePersonCommand}"
+						Style="{ThemeResource AccentButtonStyle}" />
+
+					<TextBlock
+						Margin="100,12,100,0"
+						Foreground="{StaticResource _warningColorText}"
+						Text="{Binding ErrorFields}"
+						TextAlignment="Center"
+						TextWrapping="Wrap" />
+				</StackPanel>
 			</Grid>
 		</ScrollViewer>
 	</Grid>

@@ -5,6 +5,7 @@
 	using FamilyLifeTree.Core.Interfaces;
 	using FamilyLifeTree.Core.Models;
 	using System;
+	using System.Collections.Generic;
 	using System.Threading.Tasks;
 	using Utils.Extensions;
 	using Utils.Interfaces;
@@ -28,6 +29,11 @@
 		/// Сервис навигации.
 		/// </summary>
 		private readonly INavigationService _navigationService;
+
+		/// <summary>
+		/// Сервис локализаций
+		/// </summary>
+		private readonly ILocalizationService _localizationService;
 
 		/// <summary>
 		/// Имя.
@@ -172,6 +178,31 @@
 		/// </summary>
 		public bool IsValidBirthDate => BirthDate.IsValidDate();
 
+		/// <summary>
+		/// Поле ошибок валидации полей.
+		/// </summary>
+		public string ErrorFields
+		{
+			get
+			{
+				var errors = new List<string>();
+
+				if (!IsValidFirstName) 
+					errors.Add(_localizationService.GetLocalizationString("NameInputError"));
+
+				if (!IsValidLastName) 
+					errors.Add(_localizationService.GetLocalizationString("SecondNameInputError"));
+
+				if (!IsValidBirthDate) 
+					errors.Add(_localizationService.GetLocalizationString("DateBirthdayError"));
+
+				if (!IsValidDeathDate) 
+					errors.Add(_localizationService.GetLocalizationString("DateDeathError"));
+
+				return string.Join(Environment.NewLine, errors);
+			}
+		}
+
 		#endregion
 
 		#region Public Constructors
@@ -181,10 +212,13 @@
 		/// </summary>
 		/// <param name="unitOfWork">Unit of Work для работы с БД.</param>
 		/// <param name="navigationService">Сервис навигации.</param>
-		public StartPageViewModel(IUnitOfWork unitOfWork, INavigationService navigationService)
+		/// <param name="localizationService">Сервис локализаций.</param>
+		public StartPageViewModel(IUnitOfWork unitOfWork, INavigationService navigationService, ILocalizationService localizationService)
 		{
 			_unitOfWork = unitOfWork;
 			_navigationService = navigationService;
+			_localizationService = localizationService;
+
 			CreatePersonCommand = new AsyncRelayCommand(OnExecutedCommandCreatePersonAsync, CanExecuteCommandCreatePersonAsync);
 		}
 
@@ -226,6 +260,7 @@
 			OnPropertyChanged(nameof(IsValidLastName));
 			OnPropertyChanged(nameof(IsValidDeathDate));
 			OnPropertyChanged(nameof(IsValidBirthDate));
+			OnPropertyChanged(nameof(ErrorFields));
 
 			return IsValidFirstName && IsValidLastName && IsValidDeathDate && IsValidBirthDate;
 		}
