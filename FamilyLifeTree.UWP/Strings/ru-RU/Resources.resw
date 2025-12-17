@@ -90,4 +90,16 @@
   <data name="StartBuildTreeUid.Content" xml:space="preserve">
     <value>Начать построение дерева</value>
   </data>
+  <data name="NameInputError" xml:space="preserve">
+    <value>Поле имени должно содержать только буквы. Поле не должно содержать цифры или другие специальные знаки.</value>
+  </data>
+  <data name="DateBirthdayError" xml:space="preserve">
+    <value>Дата рождения не может быть позднее сегодняшней даты.</value>
+  </data>
+  <data name="DateDeathError" xml:space="preserve">
+    <value>Дата смерти не может быть раньше даты рождения и быть позднее сегодняшней даты.</value>
+  </data>
+  <data name="SecondNameInputError" xml:space="preserve">
+    <value>Поле фамилии должно содержать только буквы.. Поле не должно содержать цифры или другие специальные знаки</value>
+  </data>
 </root>

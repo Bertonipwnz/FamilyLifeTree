@@ -172,6 +172,8 @@
 		/// </summary>
 		public bool IsValidBirthDate => BirthDate.IsValidDate();
 
+		public string ErrorFields
+
 		#endregion
 
 		#region Public Constructors
