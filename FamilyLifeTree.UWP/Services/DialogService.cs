@@ -1,11 +1,13 @@
 ﻿namespace FamilyLifeTree.UWP.Services
 {
-	using System;
+    using Serilog;
+    using System;
 	using System.Threading.Tasks;
 	using Utils.Dialogs.Enums;
 	using Utils.Dialogs.Services;
 	using Utils.Dialogs.ViewModels;
-	using Windows.UI;
+    using Utils.Logger;
+    using Windows.UI;
 	using Windows.UI.Xaml.Controls;
 	using Windows.UI.Xaml.Media;
 
@@ -24,6 +26,11 @@
 		/// </summary>
 		private ContentPresenter? _host;
 
+		/// <summary>
+		/// Логгер.
+		/// </summary>
+		private readonly ILogger? _logger = LogService.GetCurrentLogger();
+
 		#endregion
 
 		#region Public Methods
@@ -34,6 +41,7 @@
 			if (host is ContentPresenter contentPresenter)
 			{
 				_host = contentPresenter;
+				_logger?.Debug("Host was setted");
 				return;
 			}
 
