@@ -13,12 +13,13 @@
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
 	using System;
+	using System.Threading;
 	using Utils.Dialogs.Services;
 	using Utils.Interfaces;
 	using Utils.Logger;
-    using Utils.Serialization.Services;
-    using Utils.Serialization.Services.Interfaces;
-    using Windows.ApplicationModel;
+	using Utils.Serialization.Services;
+	using Utils.Serialization.Services.Interfaces;
+	using Windows.ApplicationModel;
 	using Windows.ApplicationModel.Activation;
 	using Windows.UI.Xaml;
 	using Windows.UI.Xaml.Controls;
@@ -36,6 +37,11 @@
 		/// Провайдер служб зависимостей.
 		/// </summary>
 		private IServiceProvider? _serviceProvider;
+		
+		/// <summary>
+		/// Мьютекс для единственного экземпляра.
+		/// </summary>
+		private Mutex? _singleInstanceMutex;
 
 		#endregion Private Fields
 
@@ -71,9 +77,11 @@
 		/// <inheritdoc/>
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
+			if (IsSecondInstance())
+				return;
+
 			ConfigureServices();
 			InitializeDatabase();
-			// TODO: Блокировка от двойного запуска.
 
 			if (Window.Current.Content is not Frame rootFrame)
 			{
@@ -103,6 +111,16 @@
 		#endregion Protected Methods
 
 		#region Private Methods
+
+		/// <summary>
+		/// Это второй экземпляр?
+		/// </summary>
+		private bool IsSecondInstance()
+		{
+			_singleInstanceMutex = new Mutex(true, Package.Current.Id.FullName, out bool createdNew);
+
+			return !createdNew;
+		}
 
 		/// <summary>
 		/// Вызывается при сбое навигации на определенную страницу.
