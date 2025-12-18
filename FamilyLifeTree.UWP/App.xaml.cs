@@ -13,16 +13,19 @@
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
 	using System;
+	using System.Threading;
 	using Utils.Dialogs.Services;
 	using Utils.Interfaces;
 	using Utils.Logger;
-    using Utils.Serialization.Services;
-    using Utils.Serialization.Services.Interfaces;
-    using Windows.ApplicationModel;
+	using Utils.Serialization.Services;
+	using Utils.Serialization.Services.Interfaces;
+	using Windows.ApplicationModel;
 	using Windows.ApplicationModel.Activation;
 	using Windows.UI.Xaml;
 	using Windows.UI.Xaml.Controls;
 	using Windows.UI.Xaml.Navigation;
+
+#nullable enable
 
 	/// <summary>
 	/// Предоставляет специфичное для приложения поведение,
@@ -36,6 +39,11 @@
 		/// Провайдер служб зависимостей.
 		/// </summary>
 		private IServiceProvider? _serviceProvider;
+
+		/// <summary>
+		/// Мьютекс для единственного экземпляра.
+		/// </summary>
+		private Mutex? _singleInstanceMutex;
 
 		#endregion Private Fields
 
@@ -71,9 +79,11 @@
 		/// <inheritdoc/>
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
+			if (IsSecondInstance())
+				return;
+
 			ConfigureServices();
 			InitializeDatabase();
-			// TODO: Блокировка от двойного запуска.
 
 			if (Window.Current.Content is not Frame rootFrame)
 			{
@@ -97,12 +107,22 @@
 
 				Window.Current.Activate();
 			}
-			
+
 		}
 
 		#endregion Protected Methods
 
 		#region Private Methods
+
+		/// <summary>
+		/// Это второй экземпляр?
+		/// </summary>
+		private bool IsSecondInstance()
+		{
+			_singleInstanceMutex = new Mutex(true, Package.Current.Id.FullName, out bool createdNew);
+
+			return !createdNew;
+		}
 
 		/// <summary>
 		/// Вызывается при сбое навигации на определенную страницу.
@@ -229,8 +249,7 @@
 			}
 			catch (Exception ex)
 			{
-				// TODO: Логгирование ошибок инициализации БД
-				System.Diagnostics.Debug.WriteLine($"Ошибка инициализации базы данных: {ex.Message}");
+				LogService.GetCurrentLogger()?.Error(ex, ex.Message ?? ex.ToString());
 			}
 		}
 
@@ -298,13 +317,13 @@
 		/// <exception cref="InvalidOperationException">Если Frame уже был установлен.</exception>
 		public void SetNavigationFrame(Frame frame)
 		{
-			if (frame == null) 
+			if (frame == null)
 				throw new ArgumentNullException(nameof(frame));
 
 			var navService = _serviceProvider?.GetRequiredService<INavigationService>()
 							 ?? throw new InvalidOperationException("ServiceProvider не инициализирован.");
 
-			if(navService is UWPNavigationService uwpNavService)
+			if (navService is UWPNavigationService uwpNavService)
 				uwpNavService.Initialize(frame);
 		}
 

@@ -22,7 +22,7 @@ namespace FamilyLifeTree.UWP.Services
 		/// <summary>
 		/// Логгер текущего класса.
 		/// </summary>
-		private readonly ILogger _logger = LogService.GetCurrentLogger();
+		private readonly ILogger? _logger = LogService.GetCurrentLogger();
 
 		#endregion
 
