@@ -1,13 +1,13 @@
 ﻿namespace FamilyLifeTree.UWP.Services
 {
-    using Serilog;
-    using System;
+	using Serilog;
+	using System;
 	using System.Threading.Tasks;
 	using Utils.Dialogs.Enums;
 	using Utils.Dialogs.Services;
 	using Utils.Dialogs.ViewModels;
-    using Utils.Logger;
-    using Windows.UI;
+	using Utils.Logger;
+	using Windows.UI;
 	using Windows.UI.Xaml.Controls;
 	using Windows.UI.Xaml.Media;
 
