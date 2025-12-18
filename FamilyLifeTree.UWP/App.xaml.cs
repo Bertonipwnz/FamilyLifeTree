@@ -25,6 +25,8 @@
 	using Windows.UI.Xaml.Controls;
 	using Windows.UI.Xaml.Navigation;
 
+#nullable enable
+
 	/// <summary>
 	/// Предоставляет специфичное для приложения поведение,
 	/// дополняющее класс <see cref="Application"/> по умолчанию.
@@ -37,7 +39,7 @@
 		/// Провайдер служб зависимостей.
 		/// </summary>
 		private IServiceProvider? _serviceProvider;
-		
+
 		/// <summary>
 		/// Мьютекс для единственного экземпляра.
 		/// </summary>
@@ -105,7 +107,7 @@
 
 				Window.Current.Activate();
 			}
-			
+
 		}
 
 		#endregion Protected Methods
@@ -316,13 +318,13 @@
 		/// <exception cref="InvalidOperationException">Если Frame уже был установлен.</exception>
 		public void SetNavigationFrame(Frame frame)
 		{
-			if (frame == null) 
+			if (frame == null)
 				throw new ArgumentNullException(nameof(frame));
 
 			var navService = _serviceProvider?.GetRequiredService<INavigationService>()
 							 ?? throw new InvalidOperationException("ServiceProvider не инициализирован.");
 
-			if(navService is UWPNavigationService uwpNavService)
+			if (navService is UWPNavigationService uwpNavService)
 				uwpNavService.Initialize(frame);
 		}
 
