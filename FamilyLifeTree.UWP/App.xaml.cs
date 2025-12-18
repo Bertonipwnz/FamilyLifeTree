@@ -249,8 +249,7 @@
 			}
 			catch (Exception ex)
 			{
-				// TODO: Логгирование ошибок инициализации БД
-				System.Diagnostics.Debug.WriteLine($"Ошибка инициализации базы данных: {ex.Message}");
+				LogService.GetCurrentLogger()?.Error(ex, ex.Message ?? ex.ToString());
 			}
 		}
 
