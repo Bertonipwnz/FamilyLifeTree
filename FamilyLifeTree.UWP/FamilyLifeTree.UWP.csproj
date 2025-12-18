@@ -18,4 +18,9 @@
 		<ProjectReference Include="..\FamilyLifeTree.DataAccess\FamilyLifeTree.DataAccess.csproj" />
 		<ProjectReference Include="..\FamilyLifeTree\FamilyLifeTree.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Assets\Genders\GendersData.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
 </Project>
