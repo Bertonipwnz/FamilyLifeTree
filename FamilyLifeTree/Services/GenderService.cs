@@ -10,13 +10,16 @@
 	using System.Threading;
 	using System.Threading.Tasks;
 	using Utils.Interfaces;
+	using Utils.Logger;
 	using Utils.Serialization.Services.Interfaces;
+
+#nullable enable
 
 	//TODO: Можно сделать базовый абстрактный класс который реализует некоторую логику сервиса и передавать просто параметры.
 	/// <summary>
 	/// Сервис гендеров.
 	/// </summary>
-	public class GenderService : IEntityService<GenderModel, GenderViewModel>
+	public class GenderService : IEntityService<GenderModel, GenderViewModel>, IAsyncInitializable
 	{
 		#region Private Fields
 
@@ -33,7 +36,7 @@
 		/// <summary>
 		/// Логгер.
 		/// </summary>
-		private readonly ILogger _logger;
+		private readonly ILogger? _logger = LogService.GetCurrentLogger();
 
 		#endregion
 
@@ -46,7 +49,7 @@
 		public bool IsInitialized { get; private set; }
 
 		/// <inheritdoc/>
-		public event EventHandler Initialized;
+		public event EventHandler? Initialized;
 
 		#endregion Public Properties
 
@@ -55,9 +58,8 @@
 		/// <summary>
 		/// Создает экземпляр <see cref="GenderService"/>
 		/// </summary>
-		public GenderService(IFileService fileService, IJsonSerializationService jsonService, ILogger logger)
+		public GenderService(IFileService fileService, IJsonSerializationService jsonService)
 		{
-			_logger = logger;
 			_jsonService = jsonService;
 			_fileService = fileService;
 		}
@@ -69,12 +71,15 @@
 		/// <inheritdoc/>
 		public async Task InitializeAsync(CancellationToken cancellationToken = default)
 		{
+			if (IsInitialized)
+				return;
+
 			string relativePath = Path.Combine("Assets", "Genders", "GendersData.json");
 			string fileContent = await _fileService.ReadAllTextFromInstalledPathAsync(relativePath);
 
 			if (string.IsNullOrWhiteSpace(fileContent))
 			{
-				_logger.Warning("Файл с данными о гендерах пуст или не найден: {Path}", relativePath);
+				_logger?.Warning("Файл с данными о гендерах пуст или не найден: {Path}", relativePath);
 				IsInitialized = true;
 				Initialized?.Invoke(this, EventArgs.Empty);
 				return;

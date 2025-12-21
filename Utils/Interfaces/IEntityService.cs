@@ -7,7 +7,7 @@
 	/// </summary>
 	/// <typeparam name="M">Модель.</typeparam>
 	/// <typeparam name="VM">Модель представления.</typeparam>
-	public interface IEntityService<M,VM> : IAsyncInitializable
+	public interface IEntityService<M,VM>
 	{
 		/// <summary>
 		/// Список моделей представления.
