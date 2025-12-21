@@ -1,26 +1,24 @@
 ﻿namespace Utils.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+	using System.Collections.Generic;
 
-    /// <summary>
-    /// Интерфейс сервиса сущности.
-    /// </summary>
-    /// <typeparam name="M">Модель.</typeparam>
-    /// <typeparam name="VM">Модель представления.</typeparam>
-    public interface IEntityService<M,VM>
-    {
-        /// <summary>
-        /// Создает модель
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public VM CreateVM(M model);
+	/// <summary>
+	/// Интерфейс сервиса сущности.
+	/// </summary>
+	/// <typeparam name="M">Модель.</typeparam>
+	/// <typeparam name="VM">Модель представления.</typeparam>
+	public interface IEntityService<M,VM>
+	{
+		/// <summary>
+		/// Создает модель
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		VM CreateVM(M model);
 
-        /// <summary>
-        /// Метод получения поделей.
-        /// </summary>
-        public async Task<List<M>> GetModelsAsync();
-
-    }
+		/// <summary>
+		/// Список моделей представления.
+		/// </summary>
+		public IEnumerable<VM> ViewModels { get; set; }
+	}
 }
