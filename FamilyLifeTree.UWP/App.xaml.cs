@@ -2,18 +2,25 @@
 {
 	using AutoMapper.Extensions.ExpressionMapping;
 	using FamilyLifeTree.Core.Interfaces;
+	using FamilyLifeTree.Core.Models;
 	using FamilyLifeTree.DataAccess;
 	using FamilyLifeTree.DataAccess.DbContext;
 	using FamilyLifeTree.DataAccess.Mappings;
 	using FamilyLifeTree.DataAccess.Repositories;
+	using FamilyLifeTree.Services;
+	using FamilyLifeTree.UWP.Helpers;
 	using FamilyLifeTree.UWP.Services;
 	using FamilyLifeTree.UWP.Views.Pages;
+	using FamilyLifeTree.ViewModels.Entities;
 	using FamilyLifeTree.ViewModels.Pages;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
 	using System;
+	using System.Collections.Generic;
+	using System.Linq;
 	using System.Threading;
+	using System.Threading.Tasks;
 	using Utils.Dialogs.Services;
 	using Utils.Interfaces;
 	using Utils.Logger;
@@ -77,13 +84,14 @@
 		#region Protected Methods
 
 		/// <inheritdoc/>
-		protected override void OnLaunched(LaunchActivatedEventArgs e)
+		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			if (IsSecondInstance())
 				return;
 
 			ConfigureServices();
 			InitializeDatabase();
+			await InitializeServices();
 
 			if (Window.Current.Content is not Frame rootFrame)
 			{
@@ -113,6 +121,15 @@
 		#endregion Protected Methods
 
 		#region Private Methods
+		
+		/// <summary>
+		/// Инициализирует сервисы.
+		/// </summary>
+		private async Task InitializeServices()
+		{
+			var initializables = _serviceProvider?.GetServices<IAsyncInitializable>() ?? new List<IAsyncInitializable>();
+			await Task.WhenAll(initializables.Select(x => x.InitializeAsync()));
+		}
 
 		/// <summary>
 		/// Это второй экземпляр?
@@ -168,11 +185,15 @@
 			ConfigureRepositories(services);
 
 			services
+				.AddSingleton<IPathHelper, PathHelper>()
 				.AddSingleton<IFileService, FileService>()
 				.AddSingleton<IJsonSerializationService, JsonSerializationService>()
 				.AddSingleton<INavigationService, UWPNavigationService>()
 				.AddSingleton<ILocalizationService, LocalizationService>()
 				.AddSingleton<IDialogService, DialogService>()
+				.AddSingleton<GenderService>()
+				.AddSingleton<IEntityService<GenderModel, GenderViewModel>>(sp => sp.GetRequiredService<GenderService>())
+				.AddSingleton<IAsyncInitializable>(sp => sp.GetRequiredService<GenderService>())
 				.AddScoped<MainPageViewModel>()
 				.AddScoped<StartPageViewModel>()
 				.AddScoped<TreePageViewModel>();

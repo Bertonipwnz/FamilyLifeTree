@@ -1,0 +1,14 @@
+[
+	{
+		"gender": 1,
+		"icon_path": "Assets/Genders/man.png"
+	},
+	{
+		"gender": 2,
+		"icon_path": "Assets/Genders/woman.png"
+	},
+	{
+		"gender": 3,
+		"icon_path": "Assets/Genders/none.png"
+	}
+]

@@ -4,8 +4,10 @@
 	using FamilyLifeTree.Core.Enums;
 	using FamilyLifeTree.Core.Interfaces;
 	using FamilyLifeTree.Core.Models;
+	using FamilyLifeTree.ViewModels.Entities;
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using System.Threading.Tasks;
 	using Utils.Extensions;
 	using Utils.Interfaces;
@@ -73,6 +75,11 @@
 		#endregion
 
 		#region Public Properties
+
+		/// <summary>
+		/// Гендеры.
+		/// </summary>
+		public List<GenderViewModel> Genders { get; private set; } = new List<GenderViewModel>();
 
 		/// <summary>
 		/// <see cref="_firstName"/>
@@ -213,12 +220,12 @@
 		/// <param name="unitOfWork">Unit of Work для работы с БД.</param>
 		/// <param name="navigationService">Сервис навигации.</param>
 		/// <param name="localizationService">Сервис локализаций.</param>
-		public StartPageViewModel(IUnitOfWork unitOfWork, INavigationService navigationService, ILocalizationService localizationService)
+		public StartPageViewModel(IUnitOfWork unitOfWork, INavigationService navigationService, ILocalizationService localizationService, IEntityService<GenderModel, GenderViewModel> genderSerivce)
 		{
 			_unitOfWork = unitOfWork;
 			_navigationService = navigationService;
 			_localizationService = localizationService;
-
+			Genders = genderSerivce.ViewModels.ToList();
 			CreatePersonCommand = new AsyncRelayCommand(OnExecutedCommandCreatePersonAsync, CanExecuteCommandCreatePersonAsync);
 		}
 

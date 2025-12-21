@@ -104,11 +104,17 @@
 						<ComboBox
 							x:Uid="GenderInputUid"
 							d:PlaceholderText="Выберите пол"
-							ItemsSource="{Binding Genders}"
-							SelectedItem="{Binding Gender, Mode=TwoWay}">
+							ItemsSource="{Binding Genders}">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
-									<TextBlock Text="{Binding}" />
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding GenderType}" />
+										<Image
+											Width="30"
+											Height="30"
+											Margin="2,0,0,0"
+											Source="{Binding IconPath}" />
+									</StackPanel>
 								</DataTemplate>
 							</ComboBox.ItemTemplate>
 						</ComboBox>
