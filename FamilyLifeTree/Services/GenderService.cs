@@ -2,13 +2,16 @@
 {
 	using FamilyLifeTree.Core.Models;
 	using FamilyLifeTree.ViewModels.Entities;
+	using Serilog;
 	using System;
 	using System.Collections.Generic;
+	using System.IO;
 	using System.Threading;
 	using System.Threading.Tasks;
 	using Utils.Interfaces;
 	using Utils.Serialization.Services.Interfaces;
 
+	//TODO: Можно сделать базовый абстрактный класс который реализует некоторую логику сервиса и передавать просто параметры.
 	/// <summary>
 	/// Сервис гендеров.
 	/// </summary>
@@ -16,6 +19,7 @@
 	{
 		private readonly IFileService _fileService;
 		private readonly IJsonSerializationService _jsonService;
+		private readonly ILogger _logger;
 
 		#region Public Properties
 
@@ -30,8 +34,9 @@
 
 		#endregion Public Properties
 
-		public GenderService(IFileService fileService, IJsonSerializationService jsonService)
+		public GenderService(IFileService fileService, IJsonSerializationService jsonService, ILogger logger)
 		{
+			_logger = logger;
 			_jsonService = jsonService;
 			_fileService = fileService;
 		}
@@ -43,9 +48,18 @@
 		}
 
 		/// <inheritdoc/>
-		public Task InitializeAsync(CancellationToken cancellationToken = default)
+		public async Task InitializeAsync(CancellationToken cancellationToken = default)
 		{
-			throw new NotImplementedException();
+			string relativePath = Path.Combine("Assets", "Genders", "GendersData.json");
+			string fileContent = await _fileService.ReadAllTextFromInstalledPathAsync(relativePath);
+
+			if (string.IsNullOrWhiteSpace(fileContent))
+			{
+				//TODO: Логгирование.
+				return;
+			}
+
+			IEnumerable<GenderModel> models = _jsonService.Deserialize<IEnumerable<GenderModel>>(fileContent) ?? new List<GenderModel>();
 
 			IsInitialized = true;
 			Initialized?.Invoke(this, EventArgs.Empty);

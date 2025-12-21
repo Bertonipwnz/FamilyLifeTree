@@ -10,7 +10,7 @@
 	public interface IEntityService<M,VM> : IAsyncInitializable
 	{
 		/// <summary>
-		/// Создает модель
+		/// Создает модель.
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
