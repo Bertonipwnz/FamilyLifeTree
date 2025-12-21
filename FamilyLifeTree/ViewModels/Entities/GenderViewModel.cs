@@ -8,6 +8,18 @@
 	/// </summary>
 	public class GenderViewModel : AbstractEntityViewModel<GenderModel>
 	{
+		#region Private Fields
+
+		private readonly GenderModel _model;
+
+		#endregion
+
+		#region Public Properties
+
+		public string IconPath => _model.IconPath;
+
+		#endregion
+
 		#region Public Constructors
 
 		/// <summary>
@@ -16,6 +28,7 @@
 		/// <param name="model">Модель.</param>
 		public GenderViewModel(GenderModel model) : base(model)
 		{
+			_model = model;
 		}
 
 		#endregion

@@ -1,6 +1,7 @@
 ﻿namespace FamilyLifeTree.Services
 {
-	using FamilyLifeTree.Core.Models;
+    using FamilyLifeTree.Core.Interfaces;
+    using FamilyLifeTree.Core.Models;
 	using FamilyLifeTree.ViewModels.Entities;
 	using Serilog;
 	using System;
@@ -22,6 +23,11 @@
 	public class GenderService : IEntityService<GenderModel, GenderViewModel>, IAsyncInitializable
 	{
 		#region Private Fields
+
+		/// <summary>
+		/// Хелпер по работе с путями.
+		/// </summary>
+		private readonly IPathHelper _pathHelper;
 
 		/// <summary>
 		/// Сервис по работе с файлами.
@@ -85,7 +91,8 @@
 				return;
 			}
 
-			IEnumerable<GenderModel> models = _jsonService.Deserialize<IEnumerable<GenderModel>>(fileContent) ?? new List<GenderModel>();
+			List<GenderModel> models = _jsonService.Deserialize<List<GenderModel>>(fileContent) ?? new List<GenderModel>();
+			models.ForEach(x => x.IconPath = Path.Combine(_pathHelper.GetInstalledFolderPath(), x.IconPath));
 			ViewModels = models.Select(x => new GenderViewModel(x));
 
 			IsInitialized = true;

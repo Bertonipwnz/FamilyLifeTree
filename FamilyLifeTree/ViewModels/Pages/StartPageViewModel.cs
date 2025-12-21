@@ -4,6 +4,7 @@
 	using FamilyLifeTree.Core.Enums;
 	using FamilyLifeTree.Core.Interfaces;
 	using FamilyLifeTree.Core.Models;
+	using FamilyLifeTree.ViewModels.Entities;
 	using System;
 	using System.Collections.Generic;
 	using System.Threading.Tasks;
@@ -73,6 +74,11 @@
 		#endregion
 
 		#region Public Properties
+
+		/// <summary>
+		/// Гендеры.
+		/// </summary>
+		public List<GenderViewModel> Genders { get; private set; } = new List<GenderViewModel>();
 
 		/// <summary>
 		/// <see cref="_firstName"/>

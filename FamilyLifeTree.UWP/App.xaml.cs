@@ -8,6 +8,7 @@
 	using FamilyLifeTree.DataAccess.Mappings;
 	using FamilyLifeTree.DataAccess.Repositories;
     using FamilyLifeTree.Services;
+    using FamilyLifeTree.UWP.Helpers;
     using FamilyLifeTree.UWP.Services;
 	using FamilyLifeTree.UWP.Views.Pages;
     using FamilyLifeTree.ViewModels.Entities;
@@ -184,6 +185,7 @@
 			ConfigureRepositories(services);
 
 			services
+				.AddSingleton<IPathHelper, PathHelper>()
 				.AddSingleton<IFileService, FileService>()
 				.AddSingleton<IJsonSerializationService, JsonSerializationService>()
 				.AddSingleton<INavigationService, UWPNavigationService>()
