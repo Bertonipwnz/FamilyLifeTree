@@ -10,12 +10,18 @@
 	{
 		#region Private Fields
 
+		/// <summary>
+		/// Модель.
+		/// </summary>
 		private readonly GenderModel _model;
 
 		#endregion
 
 		#region Public Properties
 
+		/// <summary>
+		/// Иконка гендера.
+		/// </summary>
 		public string IconPath => _model.IconPath;
 
 		#endregion
