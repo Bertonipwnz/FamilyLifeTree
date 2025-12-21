@@ -1,8 +1,10 @@
 ﻿namespace FamilyLifeTree.ViewModels.Entities
 {
+	using FamilyLifeTree.Core.Enums;
 	using FamilyLifeTree.Core.Models;
 	using Utils.Mvvm.ViewModels;
 
+	//TODO: Прокинуть локализацию гендера.
 	/// <summary>
 	/// Модель представления гендера.
 	/// </summary>
@@ -23,6 +25,11 @@
 		/// Иконка гендера.
 		/// </summary>
 		public string IconPath => _model.IconPath;
+
+		/// <summary>
+		/// Тип гендера.
+		/// </summary>
+		public Gender GenderType => _model.Gender;
 
 		#endregion
 

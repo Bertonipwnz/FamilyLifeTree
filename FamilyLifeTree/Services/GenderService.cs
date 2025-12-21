@@ -64,10 +64,11 @@
 		/// <summary>
 		/// Создает экземпляр <see cref="GenderService"/>
 		/// </summary>
-		public GenderService(IFileService fileService, IJsonSerializationService jsonService)
+		public GenderService(IFileService fileService, IJsonSerializationService jsonService, IPathHelper pathHelper)
 		{
 			_jsonService = jsonService;
 			_fileService = fileService;
+			_pathHelper = pathHelper;
 		}
 
 		#endregion
