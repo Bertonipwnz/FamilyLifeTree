@@ -1,29 +1,45 @@
 ﻿namespace FamilyLifeTree.Services
 {
-    using FamilyLifeTree.Core.Interfaces;
-    using FamilyLifeTree.Core.Models;
-    using FamilyLifeTree.ViewModels.Entities;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+	using FamilyLifeTree.Core.Interfaces;
+	using FamilyLifeTree.Core.Models;
+	using FamilyLifeTree.ViewModels.Entities;
+	using System;
+	using System.Collections.Generic;
+	using System.Threading;
+	using System.Threading.Tasks;
+	using Utils.Interfaces;
 
-    public class GenderService : IGenderService<GenderModel, GenderViewModel>
-    {
-        public IEnumerable<GenderViewModel> ViewModels { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+	/// <summary>
+	/// Сервис гендеров.
+	/// </summary>
+	public class GenderService : IGenderService<GenderModel, GenderViewModel>
+	{
+		#region Public Properties
 
-        public bool IsInitialized => throw new NotImplementedException();
+		/// <inheritdoc/>
+		public IEnumerable<GenderViewModel> ViewModels { get; private set; }
 
-        public event EventHandler Initialized;
+		/// <inheritdoc/>
+		public bool IsInitialized { get; private set; }
 
-        public GenderViewModel CreateVM(GenderModel model)
-        {
-            throw new NotImplementedException();
-        }
+		/// <inheritdoc/>
+		public event EventHandler Initialized;
 
-        public Task InitializeAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		#endregion Public Properties
+
+		/// <inheritdoc/>
+		GenderViewModel IEntityService<GenderModel, GenderViewModel>.CreateVM(GenderModel model)
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <inheritdoc/>
+		public Task InitializeAsync(CancellationToken cancellationToken = default)
+		{
+			throw new NotImplementedException();
+			
+			IsInitialized = true;
+			Initialized?.Invoke(this, EventArgs.Empty);
+		}
+	}
 }

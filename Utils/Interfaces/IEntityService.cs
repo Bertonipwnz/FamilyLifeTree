@@ -19,6 +19,6 @@
 		/// <summary>
 		/// Список моделей представления.
 		/// </summary>
-		public IEnumerable<VM> ViewModels { get; set; }
+		public IEnumerable<VM> ViewModels { get; }
 	}
 }
