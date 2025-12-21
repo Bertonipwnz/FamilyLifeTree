@@ -2,13 +2,16 @@
 {
 	using AutoMapper.Extensions.ExpressionMapping;
 	using FamilyLifeTree.Core.Interfaces;
-	using FamilyLifeTree.DataAccess;
+    using FamilyLifeTree.Core.Models;
+    using FamilyLifeTree.DataAccess;
 	using FamilyLifeTree.DataAccess.DbContext;
 	using FamilyLifeTree.DataAccess.Mappings;
 	using FamilyLifeTree.DataAccess.Repositories;
-	using FamilyLifeTree.UWP.Services;
+    using FamilyLifeTree.Services;
+    using FamilyLifeTree.UWP.Services;
 	using FamilyLifeTree.UWP.Views.Pages;
-	using FamilyLifeTree.ViewModels.Pages;
+    using FamilyLifeTree.ViewModels.Entities;
+    using FamilyLifeTree.ViewModels.Pages;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Logging;
@@ -173,6 +176,7 @@
 				.AddSingleton<INavigationService, UWPNavigationService>()
 				.AddSingleton<ILocalizationService, LocalizationService>()
 				.AddSingleton<IDialogService, DialogService>()
+				.AddSingleton<IEntityService<GenderModel, GenderViewModel>, GenderService>()
 				.AddScoped<MainPageViewModel>()
 				.AddScoped<StartPageViewModel>()
 				.AddScoped<TreePageViewModel>();
