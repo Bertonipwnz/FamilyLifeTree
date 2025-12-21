@@ -6,6 +6,7 @@
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
+	using System.Linq;
 	using System.Threading;
 	using System.Threading.Tasks;
 	using Utils.Interfaces;
@@ -17,14 +18,29 @@
 	/// </summary>
 	public class GenderService : IEntityService<GenderModel, GenderViewModel>
 	{
+		#region Private Fields
+
+		/// <summary>
+		/// Сервис по работе с файлами.
+		/// </summary>
 		private readonly IFileService _fileService;
+
+		/// <summary>
+		/// Сервис по работе с JSON.
+		/// </summary>
 		private readonly IJsonSerializationService _jsonService;
+
+		/// <summary>
+		/// Логгер.
+		/// </summary>
 		private readonly ILogger _logger;
+
+		#endregion
 
 		#region Public Properties
 
 		/// <inheritdoc/>
-		public IEnumerable<GenderViewModel> ViewModels { get; private set; }
+		public IEnumerable<GenderViewModel> ViewModels { get; private set; } = new List<GenderViewModel>();
 
 		/// <inheritdoc/>
 		public bool IsInitialized { get; private set; }
@@ -34,6 +50,11 @@
 
 		#endregion Public Properties
 
+		#region Public Constructors
+
+		/// <summary>
+		/// Создает экземпляр <see cref="GenderService"/>
+		/// </summary>
 		public GenderService(IFileService fileService, IJsonSerializationService jsonService, ILogger logger)
 		{
 			_logger = logger;
@@ -41,11 +62,9 @@
 			_fileService = fileService;
 		}
 
-		/// <inheritdoc/>
-		GenderViewModel IEntityService<GenderModel, GenderViewModel>.CreateVM(GenderModel model)
-		{
-			return new GenderViewModel(model);
-		}
+		#endregion
+
+		#region Public Methods
 
 		/// <inheritdoc/>
 		public async Task InitializeAsync(CancellationToken cancellationToken = default)
@@ -55,14 +74,19 @@
 
 			if (string.IsNullOrWhiteSpace(fileContent))
 			{
-				//TODO: Логгирование.
+				_logger.Warning("Файл с данными о гендерах пуст или не найден: {Path}", relativePath);
+				IsInitialized = true;
+				Initialized?.Invoke(this, EventArgs.Empty);
 				return;
 			}
 
 			IEnumerable<GenderModel> models = _jsonService.Deserialize<IEnumerable<GenderModel>>(fileContent) ?? new List<GenderModel>();
+			ViewModels = models.Select(x => new GenderViewModel(x));
 
 			IsInitialized = true;
 			Initialized?.Invoke(this, EventArgs.Empty);
 		}
+
+		#endregion
 	}
 }

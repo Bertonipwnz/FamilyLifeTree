@@ -10,13 +10,6 @@
 	public interface IEntityService<M,VM> : IAsyncInitializable
 	{
 		/// <summary>
-		/// Создает модель.
-		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
-		VM CreateVM(M model);
-
-		/// <summary>
 		/// Список моделей представления.
 		/// </summary>
 		public IEnumerable<VM> ViewModels { get; }
